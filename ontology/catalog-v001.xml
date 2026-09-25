@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="Imports Wizard Entry" name="https://w3id.org/rooftop_activation/incentive_type_individuals" uri="file:/C:/Users/aleja/Documents/Temp/_temp_incentive_type_individuals.rdf"/>
     <uri id="Imports Wizard Entry" name="http://www.opengis.net/ont/geosparql/1.1" uri="geo.ttl"/>
     <uri id="Imports Wizard Entry" name="http://www.opengis.net/ont/geosparql#1.1" uri="http://www.opengis.net/ont/geosparql"/>
     <uri id="Imports Wizard Entry" name="http://www.opengis.net/ont/geosparql#1.1" uri="http://www.opengis.net/ont/geosparql#"/>

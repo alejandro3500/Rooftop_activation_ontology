@@ -29,7 +29,8 @@
         <bibo:status rdf:resource="http://purl.org/ontology/bibo/status/published"/>
         <vann:preferredNamespacePrefix>rooftop_activation</vann:preferredNamespacePrefix>
         <vann:preferredNamespaceUri>https://w3id.org/rooftop_activation#</vann:preferredNamespaceUri>
-        <owl:versionInfo>1.0.0</owl:versionInfo>
+        <rdfs:comment xml:lang="en">Punned individual declarations for the incentive instrument classes of the Rooftop Activation Ontology, used as targets of relates_incentive_type in Association individuals. Merge into the main ontology.</rdfs:comment>
+        <owl:versionInfo>1.0.1</owl:versionInfo>
     </owl:Ontology>
     
 
@@ -554,6 +555,51 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#relates_challenge -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/rooftop_activation#relates_challenge">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Association"/>
+        <rdfs:range rdf:resource="https://w3id.org/rooftop_activation#Urban_Challenge"/>
+        <rdfs:comment xml:lang="en">The urban challenge involved in the association.</rdfs:comment>
+        <rdfs:label xml:lang="en">relates challenge</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#relates_incentive_type -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/rooftop_activation#relates_incentive_type">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Association"/>
+        <rdfs:comment xml:lang="en">The incentive type (Incentive subclass) involved in the association.</rdfs:comment>
+        <rdfs:label xml:lang="en">relates incentive type</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#relates_owner_type -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/rooftop_activation#relates_owner_type">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Association"/>
+        <rdfs:comment xml:lang="en">The owner type (Owner subclass) involved in the association.</rdfs:comment>
+        <rdfs:label xml:lang="en">relates owner type</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#relates_rooftop_type -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/rooftop_activation#relates_rooftop_type">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Association"/>
+        <rdfs:comment xml:lang="en">The rooftop activation type (colour class) involved in the association.</rdfs:comment>
+        <rdfs:label xml:lang="en">relates rooftop type</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#rooftop_associated_to_challenge -->
 
     <owl:ObjectProperty rdf:about="https://w3id.org/rooftop_activation#rooftop_associated_to_challenge">
@@ -606,6 +652,30 @@
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment xml:lang="en">The year in which the building was constructed, expressed as an integer. The construction era attribute of the building is derived from it automatically.</rdfs:comment>
         <rdfs:label xml:lang="en">has construction year</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#has_degree -->
+
+    <owl:DatatypeProperty rdf:about="https://w3id.org/rooftop_activation#has_degree">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Association"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+                <owl:withRestrictions rdf:parseType="Collection">
+                    <rdf:Description>
+                        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</xsd:minInclusive>
+                    </rdf:Description>
+                    <rdf:Description>
+                        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</xsd:maxInclusive>
+                    </rdf:Description>
+                </owl:withRestrictions>
+            </rdfs:Datatype>
+        </rdfs:range>
+        <rdfs:comment xml:lang="en">Strength of the association, from 0 (none) to 1 (strongest).</rdfs:comment>
+        <rdfs:label xml:lang="en">has degree</rdfs:label>
     </owl:DatatypeProperty>
     
 
@@ -700,8 +770,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Building_Capacity_or_Awareness"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Technical, legal or financial advice provided to owners to assess and prepare a rooftop activation project.</rdfs:comment>
-        <rdfs:label xml:lang="en">Advisory Service</rdfs:label>
     </owl:Class>
     
 
@@ -731,6 +799,15 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Allocation_Mechanism">
         <rdfs:comment xml:lang="en">Facet capturing how access to an incentive is decided among applicants, which drives the certainty and effort of obtaining it. Functional: an incentive uses at most one mechanism. Used with has_allocation_mechanism.</rdfs:comment>
         <rdfs:label xml:lang="en">Allocation Mechanism</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Association -->
+
+    <owl:Class rdf:about="https://w3id.org/rooftop_activation#Association">
+        <rdfs:comment xml:lang="en">A weighted link between two types of the ontology, expressed as an individual so that it can carry a degree.</rdfs:comment>
+        <rdfs:label xml:lang="en">Association</rdfs:label>
     </owl:Class>
     
 
@@ -781,8 +858,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Public_Source"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A programme that combines public grant money with private capital, using the public share to lower risk or cost for private investors.</rdfs:comment>
-        <rdfs:label xml:lang="en">Blended Finance Program</rdfs:label>
     </owl:Class>
     
 
@@ -804,9 +879,6 @@
                 </owl:unionOf>
             </owl:Class>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Rooftop"/>
-        <rdfs:comment>A rooftop activated for water management, retaining, storing or delaying stormwater. Defined class: membership is inferred from has_function.</rdfs:comment>
-        <rdfs:label xml:lang="en">Blue Rooftop</rdfs:label>
     </owl:Class>
     
 
@@ -822,8 +894,6 @@
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="https://w3id.org/rooftop_activation#Loan"/>
-        <rdfs:comment xml:lang="en">A debt security issued to investors to raise capital, repaid at maturity with periodic interest.</rdfs:comment>
-        <rdfs:label xml:lang="en">Bond</rdfs:label>
     </owl:Class>
     
 
@@ -878,8 +948,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Competitive_Allocation"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A grant awarded through a call for projects in which applications are ranked and selected against published criteria.</rdfs:comment>
-        <rdfs:label xml:lang="en">Call for Projects or Competitive Grant</rdfs:label>
     </owl:Class>
     
 
@@ -888,8 +956,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Citizen_Micro-investment_Tax_Credit">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Tax_Credit"/>
-        <rdfs:comment xml:lang="en">A tax credit granted to citizens who make small investments in local rooftop or energy projects, for example through a cooperative.</rdfs:comment>
-        <rdfs:label xml:lang="en">Citizen Micro-investment Tax Credit</rdfs:label>
     </owl:Class>
     
 
@@ -1007,8 +1073,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Contractual_Condition">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Contractual_or_Governance_Instrument"/>
-        <rdfs:comment xml:lang="en">A clause in a lease, sale, concession or permit agreement that requires or rewards rooftop activation as a condition of the contract.</rdfs:comment>
-        <rdfs:label xml:lang="en">Contractual Condition</rdfs:label>
     </owl:Class>
     
 
@@ -1067,8 +1131,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Contractual_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Instrument type grouping incentives set out in negotiated agreements or governance arrangements between public authorities, owners, developers or service providers.</rdfs:comment>
-        <rdfs:label xml:lang="en">Contractual or Governance Instrument</rdfs:label>
     </owl:Class>
     
 
@@ -1079,17 +1141,6 @@
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Incentive_Function"/>
         <rdfs:comment xml:lang="en">Aligns the decisions of multiple parties, typically through planning, programming or governance arrangements.</rdfs:comment>
         <rdfs:label xml:lang="en">Coordinating Actors</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- https://w3id.org/rooftop_activation#Corporate -->
-
-    <owl:Class rdf:about="https://w3id.org/rooftop_activation#Corporate">
-        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Real_Estate"/>
-        <owl:disjointWith rdf:resource="https://w3id.org/rooftop_activation#Municipal"/>
-        <rdfs:comment xml:lang="en">Real estate held by companies for their own operations or as an asset.</rdfs:comment>
-        <rdfs:label xml:lang="en">Corporate</rdfs:label>
     </owl:Class>
     
 
@@ -1105,8 +1156,6 @@
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="https://w3id.org/rooftop_activation#Fund"/>
-        <rdfs:comment xml:lang="en">Collection of small contributions from many people, usually through an online platform, as donations, loans or equity stakes in a rooftop project.</rdfs:comment>
-        <rdfs:label xml:lang="en">Crowdfunding Crowdlending and Crowd Equity</rdfs:label>
     </owl:Class>
     
 
@@ -1121,8 +1170,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Organizational_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Collection of ideas, rooftop offers, volunteer work or other contributions from the public to develop rooftop projects.</rdfs:comment>
-        <rdfs:label xml:lang="en">Crowdsourcing</rdfs:label>
     </owl:Class>
     
 
@@ -1157,8 +1204,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Financial_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Instrument type grouping incentives that provide repayable capital, where the recipient returns the principal, usually with interest.</rdfs:comment>
-        <rdfs:label xml:lang="en">Debt Instrument</rdfs:label>
     </owl:Class>
     
 
@@ -1177,8 +1222,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Developer_or_Charge_Fee">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Contractual_or_Governance_Instrument"/>
-        <rdfs:comment xml:lang="en">A fee or charge levied on developers or owners, such as a development or impact charge, whose amount is reduced or waived when a rooftop is activated.</rdfs:comment>
-        <rdfs:label xml:lang="en">Developer or Charge Fee</rdfs:label>
     </owl:Class>
     
 
@@ -1188,8 +1231,6 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Digital_Platform_Service">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Tools"/>
         <owl:disjointWith rdf:resource="https://w3id.org/rooftop_activation#Mapping_Tools"/>
-        <rdfs:comment xml:lang="en">An online platform that connects owners, providers, investors or users of rooftops, or manages the related processes.</rdfs:comment>
-        <rdfs:label xml:lang="en">Digital Platform Service</rdfs:label>
     </owl:Class>
     
 
@@ -1204,8 +1245,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Financial_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Instrument type grouping incentives that transfer non-repayable money or value directly to the recipient.</rdfs:comment>
-        <rdfs:label xml:lang="en">Direct Transfer Instrument</rdfs:label>
     </owl:Class>
     
 
@@ -1215,8 +1254,6 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Disclosure">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Regulatory_Instrument"/>
         <owl:disjointWith rdf:resource="https://w3id.org/rooftop_activation#Regulation"/>
-        <rdfs:comment xml:lang="en">An obligation to report or publish information about a building or its rooftop, such as its activation potential or performance.</rdfs:comment>
-        <rdfs:label xml:lang="en">Disclosure</rdfs:label>
     </owl:Class>
     
 
@@ -1256,8 +1293,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Attached_to_Property"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">An agreement with an energy service company or similar provider that designs, finances and operates a rooftop installation, recovering its investment from the savings or revenues it generates.</rdfs:comment>
-        <rdfs:label xml:lang="en">ESCO or Sustainability Agreement</rdfs:label>
     </owl:Class>
     
 
@@ -1288,8 +1323,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Financial_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Instrument type grouping incentives that raise capital by pooling contributions from investors or citizens in exchange for ownership, returns or repayment.</rdfs:comment>
-        <rdfs:label xml:lang="en">Equity or Collective Finance Instrument</rdfs:label>
     </owl:Class>
     
 
@@ -1372,8 +1405,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Improving_Operating_Economics"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A guaranteed price paid for each unit of renewable energy fed into the grid from a rooftop installation, over a fixed period.</rdfs:comment>
-        <rdfs:label xml:lang="en">Feed-in Tariff</rdfs:label>
     </owl:Class>
     
 
@@ -1439,8 +1470,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Fiscal_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Instrument type grouping incentives delivered through the tax system.</rdfs:comment>
-        <rdfs:label xml:lang="en">Fiscal Instrument</rdfs:label>
     </owl:Class>
     
 
@@ -1449,8 +1478,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Fiscal_Measure">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Fiscal_Instrument"/>
-        <rdfs:comment xml:lang="en">A tax-based measure, such as a levy, fee or rate adjustment, that makes non-activated rooftops more costly relative to activated ones.</rdfs:comment>
-        <rdfs:label xml:lang="en">Fiscal Measure</rdfs:label>
     </owl:Class>
     
 
@@ -1499,8 +1526,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Fund">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Equity_or_Collective_Finance_Instrument"/>
-        <rdfs:comment xml:lang="en">A pool of capital managed to finance multiple rooftop activation projects.</rdfs:comment>
-        <rdfs:label xml:lang="en">Fund</rdfs:label>
     </owl:Class>
     
 
@@ -1523,8 +1548,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Funding_Vehicle">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Fund"/>
-        <rdfs:comment xml:lang="en">A dedicated legal entity, such as a special purpose vehicle, set up to hold and channel capital into rooftop projects.</rdfs:comment>
-        <rdfs:label xml:lang="en">Funding Vehicle</rdfs:label>
     </owl:Class>
     
 
@@ -1565,8 +1588,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Attached_to_Project"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A non-repayable sum awarded to fund a defined rooftop project, subject to conditions on its delivery.</rdfs:comment>
-        <rdfs:label xml:lang="en">Grant</rdfs:label>
     </owl:Class>
     
 
@@ -1580,9 +1601,6 @@
                 <owl:hasValue rdf:resource="https://w3id.org/rooftop_activation#Utilities_and_infrastructure_functions"/>
             </owl:Restriction>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Rooftop"/>
-        <rdfs:comment>A rooftop activated for utilities and technical infrastructure, such as building services, telecommunications equipment or network installations. Defined class: membership is inferred from has_function.</rdfs:comment>
-        <rdfs:label xml:lang="en">Gray Rooftop</rdfs:label>
     </owl:Class>
     
 
@@ -1623,8 +1641,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Raising_Additional_Capital"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A bond whose proceeds are earmarked for projects with environmental benefits, such as green, blue or solar rooftops.</rdfs:comment>
-        <rdfs:label xml:lang="en">Green Bond</rdfs:label>
     </owl:Class>
     
 
@@ -1633,8 +1649,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Green_Project_Bond">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Green_Bond"/>
-        <rdfs:comment xml:lang="en">A green bond issued for one or more specific green projects, where investors are exposed directly to the risk of those projects.</rdfs:comment>
-        <rdfs:label xml:lang="en">Green Project Bond</rdfs:label>
     </owl:Class>
     
 
@@ -1643,8 +1657,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Green_Revenue">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Green_Bond"/>
-        <rdfs:comment xml:lang="en">A green revenue bond, repaid from the revenues, fees or taxes generated by the financed projects rather than by the issuer&apos;s general balance sheet.</rdfs:comment>
-        <rdfs:label xml:lang="en">Green Revenue</rdfs:label>
     </owl:Class>
     
 
@@ -1666,9 +1678,6 @@
                 </owl:unionOf>
             </owl:Class>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Rooftop"/>
-        <rdfs:comment>A rooftop activated with vegetation for biodiversity, cooling and amenity, or for food production. Defined class: membership is inferred from has_function.</rdfs:comment>
-        <rdfs:label xml:lang="en">Green Rooftop</rdfs:label>
     </owl:Class>
     
 
@@ -1689,8 +1698,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Organizational_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Pooling of demand from several owners to buy equipment or services jointly, or to deliver a shared rooftop project, at lower cost.</rdfs:comment>
-        <rdfs:label xml:lang="en">Group Purchases and Collective Project</rdfs:label>
     </owl:Class>
     
 
@@ -1751,8 +1758,6 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Home_Owner_Associations">
         <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
-        <rdfs:comment xml:lang="en">Collective bodies of apartment owners. Decisions require a qualified majority, which lengthens timelines.</rdfs:comment>
-        <rdfs:label xml:lang="en">Home Owner Associations</rdfs:label>
     </owl:Class>
     
 
@@ -1762,8 +1767,6 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Housing_Corporations">
         <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
-        <rdfs:comment xml:lang="en">Social housing providers with large portfolios, long horizons and a public-interest mandate. It also includes Social Housing providers</rdfs:comment>
-        <rdfs:label xml:lang="en">Housing Corporations</rdfs:label>
     </owl:Class>
     
 
@@ -1835,13 +1838,39 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Incentive_Owner_Association -->
+
+    <owl:Class rdf:about="https://w3id.org/rooftop_activation#Incentive_Owner_Association">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Association"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#relates_incentive_type"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#relates_owner_type"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#has_degree"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">Degree to which an incentive type is suitable for, or used by, an owner type.</rdfs:comment>
+        <rdfs:label xml:lang="en">Incentive-Owner Association</rdfs:label>
+    </owl:Class>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Industrial -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Industrial">
         <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
-        <rdfs:comment xml:lang="en">Owners of production and logistics buildings, typically holding large flat roofs.</rdfs:comment>
-        <rdfs:label xml:lang="en">Industrial</rdfs:label>
     </owl:Class>
     
 
@@ -1886,8 +1915,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Pre-investment_Stage"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Campaigns, events or outreach that raise awareness of rooftop activation and engage owners and residents.</rdfs:comment>
-        <rdfs:label xml:lang="en">Information or Engagement</rdfs:label>
     </owl:Class>
     
 
@@ -1902,8 +1929,6 @@
                 <owl:allValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Informational_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Instrument type grouping incentives that act by providing information, advice, recognition or tools to owners and intermediaries.</rdfs:comment>
-        <rdfs:label xml:lang="en">Informational Instrument</rdfs:label>
     </owl:Class>
     
 
@@ -1923,8 +1948,6 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Institutional_Investors">
         <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
-        <rdfs:comment xml:lang="en">Pension funds, insurers and similar, seeking stable long-term returns at portfolio scale.</rdfs:comment>
-        <rdfs:label xml:lang="en">Institutional Investors</rdfs:label>
     </owl:Class>
     
 
@@ -1933,8 +1956,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Investment">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Fund"/>
-        <rdfs:comment xml:lang="en">An investment fund that takes equity or quasi-equity positions in rooftop projects in expectation of a financial return.</rdfs:comment>
-        <rdfs:label xml:lang="en">Investment</rdfs:label>
     </owl:Class>
     
 
@@ -1959,8 +1980,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Operation_Stage"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A certification, label or award that recognises activated rooftops and can raise their visibility or market value.</rdfs:comment>
-        <rdfs:label xml:lang="en">Label or Recognition</rdfs:label>
     </owl:Class>
     
 
@@ -1970,8 +1989,6 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Landlords">
         <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
-        <rdfs:comment xml:lang="en">Owners renting to occupants, subject to the split-incentive problem where the investor is not the beneficiary.</rdfs:comment>
-        <rdfs:label xml:lang="en">Landlords</rdfs:label>
     </owl:Class>
     
 
@@ -1996,8 +2013,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Investment_Stage"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Capital lent to an owner or project and repaid over time, usually with interest.</rdfs:comment>
-        <rdfs:label xml:lang="en">Loan</rdfs:label>
     </owl:Class>
     
 
@@ -2056,8 +2071,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Mapping_Tools">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Tools"/>
-        <rdfs:comment xml:lang="en">Maps and cadastres that show the activation potential of rooftops, for example for solar energy, greening or water retention.</rdfs:comment>
-        <rdfs:label xml:lang="en">Mapping Tools</rdfs:label>
     </owl:Class>
     
 
@@ -2098,16 +2111,6 @@
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#City_Center"/>
         <rdfs:comment xml:lang="en">Recently developed or redeveloped parts of the core.</rdfs:comment>
         <rdfs:label xml:lang="en">Modern</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- https://w3id.org/rooftop_activation#Municipal -->
-
-    <owl:Class rdf:about="https://w3id.org/rooftop_activation#Municipal">
-        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Real_Estate"/>
-        <rdfs:comment xml:lang="en">Real estate held by a local authority, where public objectives may outweigh financial return.</rdfs:comment>
-        <rdfs:label xml:lang="en">Municipal</rdfs:label>
     </owl:Class>
     
 
@@ -2196,8 +2199,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Offset_or_Deduction_Mechanism">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Contractual_or_Governance_Instrument"/>
-        <rdfs:comment xml:lang="en">A mechanism that allows rooftop activation to offset or be deducted from other obligations, such as required green space, parking provision or stormwater retention on the plot.</rdfs:comment>
-        <rdfs:label xml:lang="en">Offset or Deduction Mechanism</rdfs:label>
     </owl:Class>
     
 
@@ -2218,8 +2219,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Attached_to_Property"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A loan for rooftop measures repaid through the owner&apos;s utility bill, typically sized so that the savings cover the repayments.</rdfs:comment>
-        <rdfs:label xml:lang="en">On-bill Financing</rdfs:label>
     </owl:Class>
     
 
@@ -2234,8 +2233,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Operation_Stage"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment>A variant of on-bill financing in which the capital comes from a third-party lender while repayments are collected through the utility bill.</rdfs:comment>
-        <rdfs:label xml:lang="en">On-bill Repayment</rdfs:label>
     </owl:Class>
     
 
@@ -2256,8 +2253,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Attached_to_Property"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Financing repaid through a surcharge on the property tax bill, so that the repayment obligation stays with the property when it is sold.</rdfs:comment>
-        <rdfs:label xml:lang="en">On-tax Financing</rdfs:label>
     </owl:Class>
     
 
@@ -2289,9 +2284,6 @@
                 </owl:unionOf>
             </owl:Class>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Rooftop"/>
-        <rdfs:comment>A rooftop activated for mobility or logistics, such as parking, vehicle charging, delivery hubs or drone landing. Defined class: membership is inferred from has_function.</rdfs:comment>
-        <rdfs:label xml:lang="en">Orange Rooftop</rdfs:label>
     </owl:Class>
     
 
@@ -2311,6 +2303,34 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Owner">
         <rdfs:comment xml:lang="en">The party holding decision rights over a building and therefore over any rooftop activation. Subclasses distinguish owner types by their motivation, capital access and decision process.</rdfs:comment>
         <rdfs:label xml:lang="en">Owner</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Owner_Rooftop_Association -->
+
+    <owl:Class rdf:about="https://w3id.org/rooftop_activation#Owner_Rooftop_Association">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Association"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#relates_owner_type"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#relates_rooftop_type"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#has_degree"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">Degree to which an owner type is likely to activate a rooftop activation type.</rdfs:comment>
+        <rdfs:label xml:lang="en">Owner-Rooftop Association</rdfs:label>
     </owl:Class>
     
 
@@ -2377,8 +2397,6 @@
                 <owl:allValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Organizational_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Instrument type grouping incentives that act through spatial planning, strategies and public programmes.</rdfs:comment>
-        <rdfs:label xml:lang="en">Planning Instrument</rdfs:label>
     </owl:Class>
     
 
@@ -2388,8 +2406,6 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Planning_or_Policy">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Planning_Instrument"/>
         <owl:disjointWith rdf:resource="https://w3id.org/rooftop_activation#Program_or_Zoning_Approach"/>
-        <rdfs:comment xml:lang="en">A plan, strategy or policy document that sets objectives or priorities for rooftop activation in a territory.</rdfs:comment>
-        <rdfs:label xml:lang="en">Planning or Policy</rdfs:label>
     </owl:Class>
     
 
@@ -2420,8 +2436,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Reducing_Up-Front_Costs"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A grant paid, fully or partly, before the works are carried out, so that the recipient does not have to advance the costs.</rdfs:comment>
-        <rdfs:label xml:lang="en">Pre-financed Grant</rdfs:label>
     </owl:Class>
     
 
@@ -2493,8 +2507,6 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Private_Individual">
         <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
-        <rdfs:comment xml:lang="en">A single natural person owning and usually occupying the building. Short horizon, limited capital, simple decision.</rdfs:comment>
-        <rdfs:label xml:lang="en">Private Individual</rdfs:label>
     </owl:Class>
     
 
@@ -2511,8 +2523,6 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Actors building for sale, deciding at design stage and rarely retaining ownership.</rdfs:comment>
-        <rdfs:label xml:lang="en">Private Project Developers</rdfs:label>
     </owl:Class>
     
 
@@ -2531,8 +2541,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Program_or_Zoning_Approach">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Planning_Instrument"/>
-        <rdfs:comment xml:lang="en">A programme or zoning rule that designates areas, targets or requirements for rooftop activation, such as a green area factor.</rdfs:comment>
-        <rdfs:label xml:lang="en">Program or Zoning Approach</rdfs:label>
     </owl:Class>
     
 
@@ -2577,8 +2585,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Attached_to_Property"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A loan secured on and attached to the property rather than the borrower, so that the outstanding balance transfers with ownership.</rdfs:comment>
-        <rdfs:label xml:lang="en">Property-linked Loans</rdfs:label>
     </owl:Class>
     
 
@@ -2611,8 +2617,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Organizational_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A long-term arrangement in which a public authority and private partners share the financing, delivery and risks of rooftop activation projects.</rdfs:comment>
-        <rdfs:label xml:lang="en">Public-Private Partnerships</rdfs:label>
     </owl:Class>
     
 
@@ -2667,9 +2671,6 @@
                 <owl:hasValue rdf:resource="https://w3id.org/rooftop_activation#Human_occupation_function"/>
             </owl:Restriction>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Rooftop"/>
-        <rdfs:comment>A rooftop activated for human occupation, such as housing or other built extensions added on top of the building. Defined class: membership is inferred from has_function.</rdfs:comment>
-        <rdfs:label xml:lang="en">Purple Rooftop</rdfs:label>
     </owl:Class>
     
 
@@ -2689,8 +2690,23 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Real_Estate">
         <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
-        <rdfs:comment xml:lang="en">Professional property-owning organisations.</rdfs:comment>
-        <rdfs:label xml:lang="en">Real Estate</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Real_Estate_Corporate -->
+
+    <owl:Class rdf:about="https://w3id.org/rooftop_activation#Real_Estate_Corporate">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Real_Estate"/>
+        <owl:disjointWith rdf:resource="https://w3id.org/rooftop_activation#Real_Estate_Municipal"/>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Real_Estate_Municipal -->
+
+    <owl:Class rdf:about="https://w3id.org/rooftop_activation#Real_Estate_Municipal">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Real_Estate"/>
     </owl:Class>
     
 
@@ -2714,9 +2730,6 @@
                 <owl:hasValue rdf:resource="https://w3id.org/rooftop_activation#Social_use_function"/>
             </owl:Restriction>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Rooftop"/>
-        <rdfs:comment>A rooftop activated for social use, such as meeting, recreation, sport or cultural activities open to a community or the public. Defined class: membership is inferred from has_function.</rdfs:comment>
-        <rdfs:label xml:lang="en">Red Rooftop</rdfs:label>
     </owl:Class>
     
 
@@ -2792,8 +2805,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Mandating_or_Constraining"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A binding rule that requires, permits or forbids rooftop activation, such as a mandatory green or solar roof for new buildings.</rdfs:comment>
-        <rdfs:label xml:lang="en">Regulation</rdfs:label>
     </owl:Class>
     
 
@@ -2839,8 +2850,6 @@
                 <owl:allValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Regulatory_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Instrument type grouping incentives that act through binding rules, obligations or prohibitions.</rdfs:comment>
-        <rdfs:label xml:lang="en">Regulatory Instrument</rdfs:label>
     </owl:Class>
     
 
@@ -2860,8 +2869,6 @@
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Religious_Institution">
         <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
-        <rdfs:comment xml:lang="en">Faith organisations, often owning heritage buildings with limited capital and community-oriented objectives.</rdfs:comment>
-        <rdfs:label xml:lang="en">Religious Institution</rdfs:label>
     </owl:Class>
     
 
@@ -2886,8 +2893,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Financial_Nature"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Use of rooftop space or equipment through a rental or lease, for example an owner leasing the roof to a solar operator or leasing an installation instead of buying it.</rdfs:comment>
-        <rdfs:label xml:lang="en">Renting or Leasing</rdfs:label>
     </owl:Class>
     
 
@@ -2926,8 +2931,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Revolving">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Fund"/>
-        <rdfs:comment xml:lang="en">A revolving fund in which repayments and returns from earlier projects are reinvested in new ones.</rdfs:comment>
-        <rdfs:label xml:lang="en">Revolving</rdfs:label>
     </owl:Class>
     
 
@@ -2942,8 +2945,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Attached_to_Person"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A credit line that the borrower can draw, repay and draw again up to an agreed limit.</rdfs:comment>
-        <rdfs:label xml:lang="en">Revolving Credit</rdfs:label>
     </owl:Class>
     
 
@@ -2954,6 +2955,34 @@
         <rdfs:subClassOf rdf:resource="http://bimerr.iot.linkeddata.es/def/building#Roof"/>
         <rdfs:comment xml:lang="en">The roof of a building considered as a potential site for activation, that is, for being put to a productive, ecological or social use.</rdfs:comment>
         <rdfs:label xml:lang="en">Rooftop</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Rooftop_Challenge_Association -->
+
+    <owl:Class rdf:about="https://w3id.org/rooftop_activation#Rooftop_Challenge_Association">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Association"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#relates_challenge"/>
+                <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Urban_Challenge"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#relates_rooftop_type"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#has_degree"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">Degree to which a rooftop activation type contributes to addressing an urban challenge.</rdfs:comment>
+        <rdfs:label xml:lang="en">Rooftop-Challenge Association</rdfs:label>
     </owl:Class>
     
 
@@ -2990,8 +3019,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Secured_Green">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Green_Bond"/>
-        <rdfs:comment xml:lang="en">A secured green bond, backed by collateral from one or more green projects, such as the installations or their cash flows.</rdfs:comment>
-        <rdfs:label xml:lang="en">Secured Green</rdfs:label>
     </owl:Class>
     
 
@@ -3010,8 +3037,6 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Standard_Green_Use_of_Proceeds_Bond">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Green_Bond"/>
-        <rdfs:comment xml:lang="en">A green bond with recourse to the issuer&apos;s full balance sheet, whose proceeds are allocated to eligible green projects.</rdfs:comment>
-        <rdfs:label xml:lang="en">Standard Green Use of Proceeds Bond</rdfs:label>
     </owl:Class>
     
 
@@ -3036,8 +3061,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Community_Source"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A fund or company in steward ownership, where control stays with people connected to its mission and profits are bound to that purpose rather than distributed to shareholders.</rdfs:comment>
-        <rdfs:label xml:lang="en">Steward-Owned</rdfs:label>
     </owl:Class>
     
 
@@ -3088,8 +3111,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Attached_to_Project"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A recurring payment or price support that reduces the cost of, or raises the return on, an activated rooftop during its operation.</rdfs:comment>
-        <rdfs:label xml:lang="en">Subsidy</rdfs:label>
     </owl:Class>
     
 
@@ -3130,8 +3151,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Attached_to_Person"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A reduction or exemption of taxes, or a reduced VAT rate, granted automatically for eligible rooftop works or installations.</rdfs:comment>
-        <rdfs:label xml:lang="en">TAX or VAT Incentive</rdfs:label>
     </owl:Class>
     
 
@@ -3152,8 +3171,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Attached_to_Person"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">An amount deducted directly from the tax owed by an eligible taxpayer who invests in rooftop activation.</rdfs:comment>
-        <rdfs:label xml:lang="en">Tax Credit</rdfs:label>
     </owl:Class>
     
 
@@ -3168,8 +3185,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Pre-investment_Stage"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Tools that help owners and professionals identify, assess or plan rooftop activation.</rdfs:comment>
-        <rdfs:label xml:lang="en">Tools</rdfs:label>
     </owl:Class>
     
 
@@ -3282,8 +3297,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Reducing_Up-Front_Costs"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Instrument type grouping incentives that give access to rooftop space, equipment or services without full ownership or up-front purchase.</rdfs:comment>
-        <rdfs:label xml:lang="en">Use or Access Instrument</rdfs:label>
     </owl:Class>
     
 
@@ -3350,8 +3363,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Attached_to_Person"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A voucher of fixed value that an owner can redeem for eligible goods or services, such as a feasibility study or an installation.</rdfs:comment>
-        <rdfs:label xml:lang="en">Voucher</rdfs:label>
     </owl:Class>
     
 
@@ -3385,9 +3396,6 @@
                 <owl:hasValue rdf:resource="https://w3id.org/rooftop_activation#Energy_generation_function"/>
             </owl:Restriction>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Rooftop"/>
-        <rdfs:comment>A rooftop activated for energy generation, typically with photovoltaic or solar thermal installations. Defined class: membership is inferred from has_function.</rdfs:comment>
-        <rdfs:label xml:lang="en">Yellow Rooftop</rdfs:label>
     </owl:Class>
     
 
@@ -3445,6 +3453,12 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Advisory_Service -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Advisory_Service"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Affordability_crisis -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Affordability_crisis">
@@ -3452,6 +3466,24 @@
         <rdfs:comment>Housing costs that rise faster than incomes, placing adequate housing out of reach for a growing share of residents.</rdfs:comment>
         <rdfs:label xml:lang="en">Affordability crisis</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Blended_Finance_Program -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Blended_Finance_Program"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Blue_Rooftop -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Blue_Rooftop"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Bond -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Bond"/>
     
 
 
@@ -3465,6 +3497,48 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Call_for_Projects_or_Competitive_Grant -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Call_for_Projects_or_Competitive_Grant"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Citizen_Micro-investment_Tax_Credit -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Citizen_Micro-investment_Tax_Credit"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Contractual_Condition -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Contractual_Condition"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Contractual_or_Governance_Instrument -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Contractual_or_Governance_Instrument"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Crowdfunding_Crowdlending_and_Crowd_Equity -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Crowdfunding_Crowdlending_and_Crowd_Equity"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Crowdsourcing -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Crowdsourcing"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Debt_instrument -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Debt_instrument"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Decline_of_ecological_corridors -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Decline_of_ecological_corridors">
@@ -3472,6 +3546,30 @@
         <rdfs:comment>Loss of the continuous green and blue connections that allow species to move through the city.</rdfs:comment>
         <rdfs:label xml:lang="en">Decline of ecological corridors</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Developer_or_Charge_Fee -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Developer_or_Charge_Fee"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Digital_Platform_Service -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Digital_Platform_Service"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Direct_Transfer_Instrument -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Direct_Transfer_Instrument"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Disclosure -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Disclosure"/>
     
 
 
@@ -3492,6 +3590,12 @@
         <rdfs:comment xml:lang="en">The city of Dublin, Ireland, used as the geographic scope for the incentives it implements.</rdfs:comment>
         <rdfs:label xml:lang="en">Dublin</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#ESCO_or_Sustainability_Agreement -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#ESCO_or_Sustainability_Agreement"/>
     
 
 
@@ -3525,6 +3629,30 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Equity_or_Collective_Finance_Instrument -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Equity_or_Collective_Finance_Instrument"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Feed-in_Tariff -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Feed-in_Tariff"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Fiscal_Instrument -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Fiscal_Instrument"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Fiscal_Measure -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Fiscal_Measure"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Flood_risk -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Flood_risk">
@@ -3555,6 +3683,60 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Fund -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Fund"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Funding_Vehicle -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Funding_Vehicle"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Grant -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Grant"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Gray_Rooftop -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Gray_Rooftop"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Green_Bond -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Green_Bond"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Green_Project_Bond -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Green_Project_Bond"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Green_Revenue -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Green_Revenue"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Green_Rooftop -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Green_Rooftop"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Group_Purchases_and_Collective_Project -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Group_Purchases_and_Collective_Project"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Habitat_fragmentation -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Habitat_fragmentation">
@@ -3572,6 +3754,18 @@
         <rdfs:comment xml:lang="en">Lack of low-carbon heat sources to replace fossil fuel heating.</rdfs:comment>
         <rdfs:label xml:lang="en">Heat/lack of heat sources</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Home_Owner_Associations -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Home_Owner_Associations"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Housing_Corporations -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Housing_Corporations"/>
     
 
 
@@ -3625,6 +3819,30 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Industrial -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Industrial"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Information_or_Engagement -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Information_or_Engagement"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Informational_Instrument -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Informational_Instrument"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Institutional_Investors -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Institutional_Investors"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Introducing_sharing_systems -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Introducing_sharing_systems">
@@ -3632,6 +3850,18 @@
         <rdfs:comment xml:lang="en">Difficulty in introducing shared mobility systems, such as bike, scooter or car sharing.</rdfs:comment>
         <rdfs:label xml:lang="en">Introducing sharing systems</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Investment -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Investment"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Label_or_Recognition -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Label_or_Recognition"/>
     
 
 
@@ -3715,6 +3945,18 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Landlords -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Landlords"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Loan -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Loan"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Logistics_functions -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Logistics_functions">
@@ -3752,6 +3994,12 @@
         <rdfs:comment xml:lang="en">The city of Mannheim, Germany, used as the geographic scope for the incentives it implements.</rdfs:comment>
         <rdfs:label xml:lang="en">Mannheim</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Mapping_Tools -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Mapping_Tools"/>
     
 
 
@@ -3835,6 +4083,36 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Offset_or_Deduction_Mechanism -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Offset_or_Deduction_Mechanism"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#On-bill_Financing -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#On-bill_Financing"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#On-bill_Repayment -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#On-bill_Repayment"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#On-tax_Financing -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#On-tax_Financing"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Orange_Rooftop -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Orange_Rooftop"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Outdated_water_energy_and_transport_systems -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Outdated_water_energy_and_transport_systems">
@@ -3852,6 +4130,18 @@
         <rdfs:comment xml:lang="en">Pressure on public space from demand for vehicle parking.</rdfs:comment>
         <rdfs:label xml:lang="en">Parking demand in public space</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Planning_Instrument -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Planning_Instrument"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Planning_or_Policy -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Planning_or_Policy"/>
     
 
 
@@ -3875,6 +4165,36 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Pre-financed_Grant -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Pre-financed_Grant"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Private_Individual -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Private_Individual"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Private_Project_Developers -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Private_Project_Developers"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Program_or_Zoning_Approach -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Program_or_Zoning_Approach"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Property-linked_Loans -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Property-linked_Loans"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Protection_of_cultural_heritage_blocks_climate_transition -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Protection_of_cultural_heritage_blocks_climate_transition">
@@ -3895,6 +4215,60 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Public-Private_Partnerships -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Public-Private_Partnerships"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Purple_Rooftop -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Purple_Rooftop"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Real_Estate -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Real_Estate"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Real_Estate_Corporate -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Real_Estate_Corporate"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Real_Estate_Municipal -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Real_Estate_Municipal"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Red_Rooftop -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Red_Rooftop"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Regulation -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Regulation"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Regulatory_Instrument -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Regulatory_Instrument"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Religious_Institution -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Religious_Institution"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Renewable_energy_adoption -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Renewable_energy_adoption">
@@ -3902,6 +4276,12 @@
         <rdfs:comment xml:lang="en">Slow uptake of renewable energy production in the city.</rdfs:comment>
         <rdfs:label xml:lang="en">Renewable energy adoption</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Renting_or_Leasing -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Renting_or_Leasing"/>
     
 
 
@@ -3915,6 +4295,18 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Revolving -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Revolving"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Revolving_Credit -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Revolving_Credit"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Rotterdam -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Rotterdam">
@@ -3922,6 +4314,12 @@
         <rdfs:comment xml:lang="en">The city of Rotterdam, the Netherlands, used as the geographic scope for the incentives it implements.</rdfs:comment>
         <rdfs:label xml:lang="en">Rotterdam</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Secured_Green -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Secured_Green"/>
     
 
 
@@ -3955,6 +4353,18 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Standard_Green_Use_of_Proceeds_Bond -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Standard_Green_Use_of_Proceeds_Bond"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Steward-Owned -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Steward-Owned"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Stormwater_management_challenge -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Stormwater_management_challenge">
@@ -3972,6 +4382,30 @@
         <rdfs:comment xml:lang="en">Capturing and slowing down stormwater on the rooftop to reduce peak runoff into the drainage system. Realises the blue activation type.</rdfs:comment>
         <rdfs:label xml:lang="en">Stormwater management function</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Subsidy -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Subsidy"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#TAX_or_VAT_Incentive -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#TAX_or_VAT_Incentive"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Tax_Credit -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Tax_Credit"/>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Tools -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Tools"/>
     
 
 
@@ -4035,6 +4469,12 @@
     
 
 
+    <!-- https://w3id.org/rooftop_activation#Use_or_Access_Instrument -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Use_or_Access_Instrument"/>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#Utilities_and_infrastructure_functions -->
 
     <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Utilities_and_infrastructure_functions">
@@ -4042,6 +4482,12 @@
         <rdfs:comment xml:lang="en">Using the rooftop for technical installations, such as building services equipment, telecommunications antennas or network infrastructure. Realises the gray activation type.</rdfs:comment>
         <rdfs:label xml:lang="en">Utilities and infrastructure functions</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Voucher -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Voucher"/>
     
 
 
@@ -4062,6 +4508,319 @@
         <rdfs:comment xml:lang="en">Storing rainwater on the rooftop for later use, infiltration or evaporation. Realises the blue activation type.</rdfs:comment>
         <rdfs:label xml:lang="en">Water retention function</rdfs:label>
     </owl:NamedIndividual>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Yellow_Rooftop -->
+
+    <owl:NamedIndividual rdf:about="https://w3id.org/rooftop_activation#Yellow_Rooftop"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Advisory_Service">
+        <rdfs:comment xml:lang="en">Technical, legal or financial advice provided to owners to assess and prepare a rooftop activation project.</rdfs:comment>
+        <rdfs:label xml:lang="en">Advisory Service</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Blended_Finance_Program">
+        <rdfs:comment xml:lang="en">A programme that combines public grant money with private capital, using the public share to lower risk or cost for private investors.</rdfs:comment>
+        <rdfs:label xml:lang="en">Blended Finance Program</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Blue_Rooftop">
+        <rdfs:comment>A rooftop activated for water management, retaining, storing or delaying stormwater. Defined class: membership is inferred from has_function.</rdfs:comment>
+        <rdfs:label xml:lang="en">Blue Rooftop</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Bond">
+        <rdfs:comment xml:lang="en">A debt security issued to investors to raise capital, repaid at maturity with periodic interest.</rdfs:comment>
+        <rdfs:label xml:lang="en">Bond</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Call_for_Projects_or_Competitive_Grant">
+        <rdfs:comment xml:lang="en">A grant awarded through a call for projects in which applications are ranked and selected against published criteria.</rdfs:comment>
+        <rdfs:label xml:lang="en">Call for Projects or Competitive Grant</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Citizen_Micro-investment_Tax_Credit">
+        <rdfs:comment xml:lang="en">A tax credit granted to citizens who make small investments in local rooftop or energy projects, for example through a cooperative.</rdfs:comment>
+        <rdfs:label xml:lang="en">Citizen Micro-investment Tax Credit</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Contractual_Condition">
+        <rdfs:comment xml:lang="en">A clause in a lease, sale, concession or permit agreement that requires or rewards rooftop activation as a condition of the contract.</rdfs:comment>
+        <rdfs:label xml:lang="en">Contractual Condition</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Contractual_or_Governance_Instrument">
+        <rdfs:comment xml:lang="en">Instrument type grouping incentives set out in negotiated agreements or governance arrangements between public authorities, owners, developers or service providers.</rdfs:comment>
+        <rdfs:label xml:lang="en">Contractual or Governance Instrument</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Crowdfunding_Crowdlending_and_Crowd_Equity">
+        <rdfs:comment xml:lang="en">Collection of small contributions from many people, usually through an online platform, as donations, loans or equity stakes in a rooftop project.</rdfs:comment>
+        <rdfs:label xml:lang="en">Crowdfunding Crowdlending and Crowd Equity</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Crowdsourcing">
+        <rdfs:comment xml:lang="en">Collection of ideas, rooftop offers, volunteer work or other contributions from the public to develop rooftop projects.</rdfs:comment>
+        <rdfs:label xml:lang="en">Crowdsourcing</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Debt_instrument">
+        <rdfs:comment xml:lang="en">Instrument type grouping incentives that provide repayable capital, where the recipient returns the principal, usually with interest.</rdfs:comment>
+        <rdfs:label xml:lang="en">Debt Instrument</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Developer_or_Charge_Fee">
+        <rdfs:comment xml:lang="en">A fee or charge levied on developers or owners, such as a development or impact charge, whose amount is reduced or waived when a rooftop is activated.</rdfs:comment>
+        <rdfs:label xml:lang="en">Developer or Charge Fee</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Digital_Platform_Service">
+        <rdfs:comment xml:lang="en">An online platform that connects owners, providers, investors or users of rooftops, or manages the related processes.</rdfs:comment>
+        <rdfs:label xml:lang="en">Digital Platform Service</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Direct_Transfer_Instrument">
+        <rdfs:comment xml:lang="en">Instrument type grouping incentives that transfer non-repayable money or value directly to the recipient.</rdfs:comment>
+        <rdfs:label xml:lang="en">Direct Transfer Instrument</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Disclosure">
+        <rdfs:comment xml:lang="en">An obligation to report or publish information about a building or its rooftop, such as its activation potential or performance.</rdfs:comment>
+        <rdfs:label xml:lang="en">Disclosure</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#ESCO_or_Sustainability_Agreement">
+        <rdfs:comment xml:lang="en">An agreement with an energy service company or similar provider that designs, finances and operates a rooftop installation, recovering its investment from the savings or revenues it generates.</rdfs:comment>
+        <rdfs:label xml:lang="en">ESCO or Sustainability Agreement</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Equity_or_Collective_Finance_Instrument">
+        <rdfs:comment xml:lang="en">Instrument type grouping incentives that raise capital by pooling contributions from investors or citizens in exchange for ownership, returns or repayment.</rdfs:comment>
+        <rdfs:label xml:lang="en">Equity or Collective Finance Instrument</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Feed-in_Tariff">
+        <rdfs:comment xml:lang="en">A guaranteed price paid for each unit of renewable energy fed into the grid from a rooftop installation, over a fixed period.</rdfs:comment>
+        <rdfs:label xml:lang="en">Feed-in Tariff</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Fiscal_Instrument">
+        <rdfs:comment xml:lang="en">Instrument type grouping incentives delivered through the tax system.</rdfs:comment>
+        <rdfs:label xml:lang="en">Fiscal Instrument</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Fiscal_Measure">
+        <rdfs:comment xml:lang="en">A tax-based measure, such as a levy, fee or rate adjustment, that makes non-activated rooftops more costly relative to activated ones.</rdfs:comment>
+        <rdfs:label xml:lang="en">Fiscal Measure</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Fund">
+        <rdfs:comment xml:lang="en">A pool of capital managed to finance multiple rooftop activation projects.</rdfs:comment>
+        <rdfs:label xml:lang="en">Fund</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Funding_Vehicle">
+        <rdfs:comment xml:lang="en">A dedicated legal entity, such as a special purpose vehicle, set up to hold and channel capital into rooftop projects.</rdfs:comment>
+        <rdfs:label xml:lang="en">Funding Vehicle</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Grant">
+        <rdfs:comment xml:lang="en">A non-repayable sum awarded to fund a defined rooftop project, subject to conditions on its delivery.</rdfs:comment>
+        <rdfs:label xml:lang="en">Grant</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Gray_Rooftop">
+        <rdfs:comment>A rooftop activated for utilities and technical infrastructure, such as building services, telecommunications equipment or network installations. Defined class: membership is inferred from has_function.</rdfs:comment>
+        <rdfs:label xml:lang="en">Gray Rooftop</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Green_Bond">
+        <rdfs:comment xml:lang="en">A bond whose proceeds are earmarked for projects with environmental benefits, such as green, blue or solar rooftops.</rdfs:comment>
+        <rdfs:label xml:lang="en">Green Bond</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Green_Project_Bond">
+        <rdfs:comment xml:lang="en">A green bond issued for one or more specific green projects, where investors are exposed directly to the risk of those projects.</rdfs:comment>
+        <rdfs:label xml:lang="en">Green Project Bond</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Green_Revenue">
+        <rdfs:comment xml:lang="en">A green revenue bond, repaid from the revenues, fees or taxes generated by the financed projects rather than by the issuer&apos;s general balance sheet.</rdfs:comment>
+        <rdfs:label xml:lang="en">Green Revenue</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Green_Rooftop">
+        <rdfs:comment>A rooftop activated with vegetation for biodiversity, cooling and amenity, or for food production. Defined class: membership is inferred from has_function.</rdfs:comment>
+        <rdfs:label xml:lang="en">Green Rooftop</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Group_Purchases_and_Collective_Project">
+        <rdfs:comment xml:lang="en">Pooling of demand from several owners to buy equipment or services jointly, or to deliver a shared rooftop project, at lower cost.</rdfs:comment>
+        <rdfs:label xml:lang="en">Group Purchases and Collective Project</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Home_Owner_Associations">
+        <rdfs:comment xml:lang="en">Collective bodies of apartment owners. Decisions require a qualified majority, which lengthens timelines.</rdfs:comment>
+        <rdfs:label xml:lang="en">Home Owner Associations</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Housing_Corporations">
+        <rdfs:comment xml:lang="en">Social housing providers with large portfolios, long horizons and a public-interest mandate. It also includes Social Housing providers</rdfs:comment>
+        <rdfs:label xml:lang="en">Housing Corporations</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Industrial">
+        <rdfs:comment xml:lang="en">Owners of production and logistics buildings, typically holding large flat roofs.</rdfs:comment>
+        <rdfs:label xml:lang="en">Industrial</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Information_or_Engagement">
+        <rdfs:comment xml:lang="en">Campaigns, events or outreach that raise awareness of rooftop activation and engage owners and residents.</rdfs:comment>
+        <rdfs:label xml:lang="en">Information or Engagement</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Informational_Instrument">
+        <rdfs:comment xml:lang="en">Instrument type grouping incentives that act by providing information, advice, recognition or tools to owners and intermediaries.</rdfs:comment>
+        <rdfs:label xml:lang="en">Informational Instrument</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Institutional_Investors">
+        <rdfs:comment xml:lang="en">Pension funds, insurers and similar, seeking stable long-term returns at portfolio scale.</rdfs:comment>
+        <rdfs:label xml:lang="en">Institutional Investors</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Investment">
+        <rdfs:comment xml:lang="en">An investment fund that takes equity or quasi-equity positions in rooftop projects in expectation of a financial return.</rdfs:comment>
+        <rdfs:label xml:lang="en">Investment</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Label_or_Recognition">
+        <rdfs:comment xml:lang="en">A certification, label or award that recognises activated rooftops and can raise their visibility or market value.</rdfs:comment>
+        <rdfs:label xml:lang="en">Label or Recognition</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Landlords">
+        <rdfs:comment xml:lang="en">Owners renting to occupants, subject to the split-incentive problem where the investor is not the beneficiary.</rdfs:comment>
+        <rdfs:label xml:lang="en">Landlords</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Loan">
+        <rdfs:comment xml:lang="en">Capital lent to an owner or project and repaid over time, usually with interest.</rdfs:comment>
+        <rdfs:label xml:lang="en">Loan</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Mapping_Tools">
+        <rdfs:comment xml:lang="en">Maps and cadastres that show the activation potential of rooftops, for example for solar energy, greening or water retention.</rdfs:comment>
+        <rdfs:label xml:lang="en">Mapping Tools</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Offset_or_Deduction_Mechanism">
+        <rdfs:comment xml:lang="en">A mechanism that allows rooftop activation to offset or be deducted from other obligations, such as required green space, parking provision or stormwater retention on the plot.</rdfs:comment>
+        <rdfs:label xml:lang="en">Offset or Deduction Mechanism</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#On-bill_Financing">
+        <rdfs:comment xml:lang="en">A loan for rooftop measures repaid through the owner&apos;s utility bill, typically sized so that the savings cover the repayments.</rdfs:comment>
+        <rdfs:label xml:lang="en">On-bill Financing</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#On-bill_Repayment">
+        <rdfs:comment>A variant of on-bill financing in which the capital comes from a third-party lender while repayments are collected through the utility bill.</rdfs:comment>
+        <rdfs:label xml:lang="en">On-bill Repayment</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#On-tax_Financing">
+        <rdfs:comment xml:lang="en">Financing repaid through a surcharge on the property tax bill, so that the repayment obligation stays with the property when it is sold.</rdfs:comment>
+        <rdfs:label xml:lang="en">On-tax Financing</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Orange_Rooftop">
+        <rdfs:comment>A rooftop activated for mobility or logistics, such as parking, vehicle charging, delivery hubs or drone landing. Defined class: membership is inferred from has_function.</rdfs:comment>
+        <rdfs:label xml:lang="en">Orange Rooftop</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Planning_Instrument">
+        <rdfs:comment xml:lang="en">Instrument type grouping incentives that act through spatial planning, strategies and public programmes.</rdfs:comment>
+        <rdfs:label xml:lang="en">Planning Instrument</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Planning_or_Policy">
+        <rdfs:comment xml:lang="en">A plan, strategy or policy document that sets objectives or priorities for rooftop activation in a territory.</rdfs:comment>
+        <rdfs:label xml:lang="en">Planning or Policy</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Pre-financed_Grant">
+        <rdfs:comment xml:lang="en">A grant paid, fully or partly, before the works are carried out, so that the recipient does not have to advance the costs.</rdfs:comment>
+        <rdfs:label xml:lang="en">Pre-financed Grant</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Private_Individual">
+        <rdfs:comment xml:lang="en">A single natural person owning and usually occupying the building. Short horizon, limited capital, simple decision.</rdfs:comment>
+        <rdfs:label xml:lang="en">Private Individual</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Private_Project_Developers">
+        <rdfs:comment xml:lang="en">Actors building for sale, deciding at design stage and rarely retaining ownership.</rdfs:comment>
+        <rdfs:label xml:lang="en">Private Project Developers</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Program_or_Zoning_Approach">
+        <rdfs:comment xml:lang="en">A programme or zoning rule that designates areas, targets or requirements for rooftop activation, such as a green area factor.</rdfs:comment>
+        <rdfs:label xml:lang="en">Program or Zoning Approach</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Property-linked_Loans">
+        <rdfs:comment xml:lang="en">A loan secured on and attached to the property rather than the borrower, so that the outstanding balance transfers with ownership.</rdfs:comment>
+        <rdfs:label xml:lang="en">Property-linked Loans</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Public-Private_Partnerships">
+        <rdfs:comment xml:lang="en">A long-term arrangement in which a public authority and private partners share the financing, delivery and risks of rooftop activation projects.</rdfs:comment>
+        <rdfs:label xml:lang="en">Public-Private Partnerships</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Purple_Rooftop">
+        <rdfs:comment>A rooftop activated for human occupation, such as housing or other built extensions added on top of the building. Defined class: membership is inferred from has_function.</rdfs:comment>
+        <rdfs:label xml:lang="en">Purple Rooftop</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Real_Estate">
+        <rdfs:comment xml:lang="en">Professional property-owning organisations.</rdfs:comment>
+        <rdfs:label xml:lang="en">Real Estate</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Real_Estate_Corporate">
+        <rdfs:comment xml:lang="en">Real estate held by companies for their own operations or as an asset.</rdfs:comment>
+        <rdfs:label xml:lang="en">Real Estate Corporate</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Real_Estate_Municipal">
+        <rdfs:comment xml:lang="en">Real estate held by a local authority, where public objectives may outweigh financial return.</rdfs:comment>
+        <rdfs:label xml:lang="en">Real Estate Municipal</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Red_Rooftop">
+        <rdfs:comment>A rooftop activated for social use, such as meeting, recreation, sport or cultural activities open to a community or the public. Defined class: membership is inferred from has_function.</rdfs:comment>
+        <rdfs:label xml:lang="en">Red Rooftop</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Regulation">
+        <rdfs:comment xml:lang="en">A binding rule that requires, permits or forbids rooftop activation, such as a mandatory green or solar roof for new buildings.</rdfs:comment>
+        <rdfs:label xml:lang="en">Regulation</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Regulatory_Instrument">
+        <rdfs:comment xml:lang="en">Instrument type grouping incentives that act through binding rules, obligations or prohibitions.</rdfs:comment>
+        <rdfs:label xml:lang="en">Regulatory Instrument</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Religious_Institution">
+        <rdfs:comment xml:lang="en">Faith organisations, often owning heritage buildings with limited capital and community-oriented objectives.</rdfs:comment>
+        <rdfs:label xml:lang="en">Religious Institution</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Renting_or_Leasing">
+        <rdfs:comment xml:lang="en">Use of rooftop space or equipment through a rental or lease, for example an owner leasing the roof to a solar operator or leasing an installation instead of buying it.</rdfs:comment>
+        <rdfs:label xml:lang="en">Renting or Leasing</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Revolving">
+        <rdfs:comment xml:lang="en">A revolving fund in which repayments and returns from earlier projects are reinvested in new ones.</rdfs:comment>
+        <rdfs:label xml:lang="en">Revolving</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Revolving_Credit">
+        <rdfs:comment xml:lang="en">A credit line that the borrower can draw, repay and draw again up to an agreed limit.</rdfs:comment>
+        <rdfs:label xml:lang="en">Revolving Credit</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Secured_Green">
+        <rdfs:comment xml:lang="en">A secured green bond, backed by collateral from one or more green projects, such as the installations or their cash flows.</rdfs:comment>
+        <rdfs:label xml:lang="en">Secured Green</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Standard_Green_Use_of_Proceeds_Bond">
+        <rdfs:comment xml:lang="en">A green bond with recourse to the issuer&apos;s full balance sheet, whose proceeds are allocated to eligible green projects.</rdfs:comment>
+        <rdfs:label xml:lang="en">Standard Green Use of Proceeds Bond</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Steward-Owned">
+        <rdfs:comment xml:lang="en">A fund or company in steward ownership, where control stays with people connected to its mission and profits are bound to that purpose rather than distributed to shareholders.</rdfs:comment>
+        <rdfs:label xml:lang="en">Steward-Owned</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Subsidy">
+        <rdfs:comment xml:lang="en">A recurring payment or price support that reduces the cost of, or raises the return on, an activated rooftop during its operation.</rdfs:comment>
+        <rdfs:label xml:lang="en">Subsidy</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#TAX_or_VAT_Incentive">
+        <rdfs:comment xml:lang="en">A reduction or exemption of taxes, or a reduced VAT rate, granted automatically for eligible rooftop works or installations.</rdfs:comment>
+        <rdfs:label xml:lang="en">TAX or VAT Incentive</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Tax_Credit">
+        <rdfs:comment xml:lang="en">An amount deducted directly from the tax owed by an eligible taxpayer who invests in rooftop activation.</rdfs:comment>
+        <rdfs:label xml:lang="en">Tax Credit</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Tools">
+        <rdfs:comment xml:lang="en">Tools that help owners and professionals identify, assess or plan rooftop activation.</rdfs:comment>
+        <rdfs:label xml:lang="en">Tools</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Use_or_Access_Instrument">
+        <rdfs:comment xml:lang="en">Instrument type grouping incentives that give access to rooftop space, equipment or services without full ownership or up-front purchase.</rdfs:comment>
+        <rdfs:label xml:lang="en">Use or Access Instrument</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Voucher">
+        <rdfs:comment xml:lang="en">A voucher of fixed value that an owner can redeem for eligible goods or services, such as a feasibility study or an installation.</rdfs:comment>
+        <rdfs:label xml:lang="en">Voucher</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Yellow_Rooftop">
+        <rdfs:comment>A rooftop activated for energy generation, typically with photovoltaic or solar thermal installations. Defined class: membership is inferred from has_function.</rdfs:comment>
+        <rdfs:label xml:lang="en">Yellow Rooftop</rdfs:label>
+    </rdf:Description>
     
 
 
@@ -4443,6 +5202,14 @@
             <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Private_Project_Developers"/>
             <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Real_Estate"/>
             <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Religious_Institution"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Incentive_Owner_Association"/>
+            <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Owner_Rooftop_Association"/>
+            <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Rooftop_Challenge_Association"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
