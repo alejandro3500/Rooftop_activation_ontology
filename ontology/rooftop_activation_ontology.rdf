@@ -180,7 +180,7 @@
         <owl:inverseOf rdf:resource="https://w3id.org/rooftop_activation#rooftop_associated_to_challenge"/>
         <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Urban_Challenge"/>
         <rdfs:range rdf:resource="https://w3id.org/rooftop_activation#Rooftop"/>
-        <rdfs:comment xml:lang="en">Relates an urban challenge to the rooftop type that contribute to addressing it. Inverse of rooftop_associated_to_challenge.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Relates an urban challenge to the rooftop type that contributes to addressing it. Inverse of rooftop_associated_to_challenge.</rdfs:comment>
         <rdfs:label xml:lang="en">challenge associated to rooftop</rdfs:label>
     </owl:ObjectProperty>
     
@@ -659,7 +659,8 @@
     <!-- http://www.w3.org/ns/org#Organization -->
 
     <owl:Class rdf:about="http://www.w3.org/ns/org#Organization">
-        <rdfs:comment xml:lang="en">A legal or social body of people. Used as a superclass for institutional owners and incentive providers.</rdfs:comment>
+        <rdfs:comment xml:lang="en">A legal or social body of people used to represent the affiliation of the people working with this ontology</rdfs:comment>
+        <rdfs:label>Organization</rdfs:label>
     </owl:Class>
     
 
@@ -667,7 +668,8 @@
     <!-- http://xmlns.com/foaf/0.1/Person -->
 
     <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Person">
-        <rdfs:comment xml:lang="en">An individual human being. Used for private owners and residents.</rdfs:comment>
+        <rdfs:comment xml:lang="en">An individual human being used to describe people interacting with this ontology</rdfs:comment>
+        <rdfs:label xml:lang="en">Person</rdfs:label>
     </owl:Class>
     
 
@@ -727,7 +729,7 @@
     <!-- https://w3id.org/rooftop_activation#Allocation_Mechanism -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Allocation_Mechanism">
-        <rdfs:comment xml:lang="en">Facet capturing how access to an incentive is decided among applicants, which drives the certainty and effort of obtaining it. Functional: an incentive uses exactly one mechanism. Used with has_allocation_mechanism.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Facet capturing how access to an incentive is decided among applicants, which drives the certainty and effort of obtaining it. Functional: an incentive uses at most one mechanism. Used with has_allocation_mechanism.</rdfs:comment>
         <rdfs:label xml:lang="en">Allocation Mechanism</rdfs:label>
     </owl:Class>
     
@@ -1113,6 +1115,12 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Crowdsourcing">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Use_or_Access_Instrument"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#has_incentive_nature"/>
+                <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Organizational_Nature"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:comment xml:lang="en">Collection of ideas, rooftop offers, volunteer work or other contributions from the public to develop rooftop projects.</rdfs:comment>
         <rdfs:label xml:lang="en">Crowdsourcing</rdfs:label>
     </owl:Class>
@@ -1741,6 +1749,7 @@
     <!-- https://w3id.org/rooftop_activation#Home_Owner_Associations -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Home_Owner_Associations">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
         <rdfs:comment xml:lang="en">Collective bodies of apartment owners. Decisions require a qualified majority, which lengthens timelines.</rdfs:comment>
         <rdfs:label xml:lang="en">Home Owner Associations</rdfs:label>
@@ -1751,6 +1760,7 @@
     <!-- https://w3id.org/rooftop_activation#Housing_Corporations -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Housing_Corporations">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
         <rdfs:comment xml:lang="en">Social housing providers with large portfolios, long horizons and a public-interest mandate. It also includes Social Housing providers</rdfs:comment>
         <rdfs:label xml:lang="en">Housing Corporations</rdfs:label>
@@ -1828,6 +1838,7 @@
     <!-- https://w3id.org/rooftop_activation#Industrial -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Industrial">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
         <rdfs:comment xml:lang="en">Owners of production and logistics buildings, typically holding large flat roofs.</rdfs:comment>
         <rdfs:label xml:lang="en">Industrial</rdfs:label>
@@ -1910,6 +1921,7 @@
     <!-- https://w3id.org/rooftop_activation#Institutional_Investors -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Institutional_Investors">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
         <rdfs:comment xml:lang="en">Pension funds, insurers and similar, seeking stable long-term returns at portfolio scale.</rdfs:comment>
         <rdfs:label xml:lang="en">Institutional Investors</rdfs:label>
@@ -1956,6 +1968,7 @@
     <!-- https://w3id.org/rooftop_activation#Landlords -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Landlords">
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
         <rdfs:comment xml:lang="en">Owners renting to occupants, subject to the split-incentive problem where the investor is not the beneficiary.</rdfs:comment>
         <rdfs:label xml:lang="en">Landlords</rdfs:label>
@@ -2163,7 +2176,7 @@
     <!-- https://w3id.org/rooftop_activation#Obligation_Attachment -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Obligation_Attachment">
-        <rdfs:comment xml:lang="en">Facet capturing what the incentive&apos;s obligation or benefit is tied to, which determines whether it survives a change of occupant or owner. Functional: an incentive attaches to exactly one of these. Used with has_obligation_attachment.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Facet capturing what the incentive&apos;s obligation or benefit is tied to, which determines whether it survives a change of occupant or owner. Functional: an incentive attaches to at most one of these. Used with has_obligation_attachment.</rdfs:comment>
         <rdfs:label xml:lang="en">Obligation Attachment</rdfs:label>
     </owl:Class>
     
@@ -2478,6 +2491,7 @@
     <!-- https://w3id.org/rooftop_activation#Private_Individual -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Private_Individual">
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
         <rdfs:comment xml:lang="en">A single natural person owning and usually occupying the building. Short horizon, limited capital, simple decision.</rdfs:comment>
         <rdfs:label xml:lang="en">Private Individual</rdfs:label>
@@ -2489,6 +2503,14 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Private_Project_Developers">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/org#Organization"/>
+                    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Person"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
         <rdfs:comment xml:lang="en">Actors building for sale, deciding at design stage and rarely retaining ownership.</rdfs:comment>
         <rdfs:label xml:lang="en">Private Project Developers</rdfs:label>
     </owl:Class>
@@ -2665,6 +2687,7 @@
     <!-- https://w3id.org/rooftop_activation#Real_Estate -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Real_Estate">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
         <rdfs:comment xml:lang="en">Professional property-owning organisations.</rdfs:comment>
         <rdfs:label xml:lang="en">Real Estate</rdfs:label>
@@ -2835,6 +2858,7 @@
     <!-- https://w3id.org/rooftop_activation#Religious_Institution -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Religious_Institution">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/org#Organization"/>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Owner"/>
         <rdfs:comment xml:lang="en">Faith organisations, often owning heritage buildings with limited capital and community-oriented objectives.</rdfs:comment>
         <rdfs:label xml:lang="en">Religious Institution</rdfs:label>
@@ -2856,6 +2880,12 @@
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Renting_or_Leasing">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Use_or_Access_Instrument"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#has_incentive_nature"/>
+                <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Financial_Nature"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:comment xml:lang="en">Use of rooftop space or equipment through a rental or lease, for example an owner leasing the roof to a solar operator or leasing an installation instead of buying it.</rdfs:comment>
         <rdfs:label xml:lang="en">Renting or Leasing</rdfs:label>
     </owl:Class>
@@ -3252,12 +3282,6 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Reducing_Up-Front_Costs"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#has_incentive_nature"/>
-                <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Financial_Nature"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <rdfs:comment xml:lang="en">Instrument type grouping incentives that give access to rooftop space, equipment or services without full ownership or up-front purchase.</rdfs:comment>
         <rdfs:label xml:lang="en">Use or Access Instrument</rdfs:label>
     </owl:Class>
@@ -3395,6 +3419,7 @@
         <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
         <org:memberOf rdf:resource="https://ror.org/01r9htc13"/>
         <foaf:mbox rdf:resource="mailto:alejandro.morales.hernandez@ulb.be"/>
+        <foaf:mbox>mailto:alejandro.morales.hern2014@gmail.com</foaf:mbox>
         <foaf:name>Alejandro Morales Hernandez</foaf:name>
     </owl:NamedIndividual>
     
@@ -3404,6 +3429,7 @@
 
     <owl:NamedIndividual rdf:about="https://ror.org/01r9htc13">
         <rdf:type rdf:resource="http://www.w3.org/ns/org#Organization"/>
+        <rdfs:label xml:lang="en">ULB</rdfs:label>
         <foaf:name xml:lang="en">Universite libre de Bruxelles</foaf:name>
     </owl:NamedIndividual>
     
