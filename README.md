@@ -24,7 +24,7 @@ optionally per region.
 | Namespace URI | `https://w3id.org/rooftop_activation#` |
 | Current version | 2.0.0 |
 | Status | Published |
-| Documentation | https://alejandro3500.github.io/Rooftop_activation_ontology/ |
+| Documentation | https://alejandro3500.github.io/Rooftop_activation_ontology/README.md |
 | Serialisations | [Turtle](https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.ttl), [RDF/XML](https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.xml), [JSON-LD](https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.jsonld), [N-Triples](https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.nt) |
 | Licence | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 | Creator | Alejandro Morales Hernandez ([ORCID 0000-0003-0053-4902](https://orcid.org/0000-0003-0053-4902)) |

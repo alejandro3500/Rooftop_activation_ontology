@@ -23,6 +23,7 @@
         <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-08-14</dcterms:created>
         <dcterms:creator rdf:resource="https://orcid.org/0000-0003-0053-4902"/>
         <dcterms:description xml:lang="en">The Rooftop Activation Ontology describes how building rooftops can be activated through colour-coded activation types (blue, green, yellow, red, purple, orange and gray) defined by the functions they host, such as water management, vegetation, energy generation, social use or mobility. It links rooftops and buildings to their attributes, owners, urban districts and the urban challenges they address, and classifies the incentives that regions implement to support activation by nature, function, funding source, allocation mechanism, obligation attachment and project stage. Users can register weighted associations between rooftop activation types, urban challenges, owner types and incentive types, optionally per region.</dcterms:description>
+        <dcterms:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-09-29</dcterms:issued>
         <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
         <dcterms:modified>2026-09-29</dcterms:modified>
         <dcterms:publisher rdf:resource="https://ror.org/01r9htc13"/>
@@ -30,12 +31,17 @@
         <bibo:status rdf:resource="http://purl.org/ontology/bibo/status/published"/>
         <vann:preferredNamespacePrefix>rooftop_activation</vann:preferredNamespacePrefix>
         <vann:preferredNamespaceUri>https://w3id.org/rooftop_activation#</vann:preferredNamespaceUri>
+        <rdfs:seeAlso rdf:resource="https://github.com/alejandro3500/Rooftop_activation_ontology/blob/main/README.md"/>
+        <rdfs:seeAlso rdf:resource="https://github.com/alejandro3500/Rooftop_activation_ontology/tree/main/examples"/>
+        <rdfs:seeAlso rdf:resource="https://github.com/alejandro3500/Rooftop_activation_ontology/tree/main/queries"/>
         <owl:versionInfo rdf:resource="2.0.0"/>
         <widoco:introduction xml:lang="en">Urban rooftops are increasingly recognised as multifunctional infrastructure that can help address challenges such as urban heat islands, flooding, energy demand and biodiversity loss. However, rooftop interventions, the owners who carry them out and the policy incentives that support them are usually described separately, which makes it difficult to align rooftop activation with urban policy.
 
 The Rooftop Activation Ontology provides a shared vocabulary to describe these elements and their relationships. It classifies rooftops into colour-coded activation types (blue, green, yellow, red, purple, orange and gray) according to the functions they host, and links rooftops and buildings to their attributes, owners, districts and regions. It organises urban challenges into thematic groups and classifies incentive instruments by nature, function, funding source, allocation mechanism, obligation attachment and project stage.
 
-Beyond this classification, the ontology allows users to register weighted associations: how strongly a rooftop activation type contributes to addressing an urban challenge, how likely an owner type is to activate a rooftop activation type, and how suitable an incentive type is for an owner type. Each association carries a degree between 0 and 1 and can be defined for a specific region, so the same model can hold the assessments of different cities. Using the queries provided in the documentation, users can retrieve, for a given rooftop, the challenges it addresses, the owner types likely to activate it and the incentives available to those owners.</widoco:introduction>
+Beyond this classification, the ontology allows users to register weighted associations: how strongly a rooftop activation type contributes to addressing an urban challenge, how likely an owner type is to activate a rooftop activation type, and how suitable an incentive type is for an owner type. Each association carries a degree between 0 and 1 and can be defined for a specific region, so the same model can hold the assessments of different cities. Using the queries provided in the documentation, users can retrieve, for a given rooftop, the challenges it addresses, the owner types likely to activate it and the incentives available to those owners.
+
+Additional resources: the [guide to registering and querying association degrees](https://github.com/alejandro3500/Rooftop_activation_ontology/blob/main/docs/association_degrees_documentation.md), [SPARQL queries](https://github.com/alejandro3500/Rooftop_activation_ontology/tree/main/queries) and [example data](https://github.com/alejandro3500/Rooftop_activation_ontology/tree/main/examples).</widoco:introduction>
     </owl:Ontology>
     
 
@@ -72,6 +78,12 @@ Beyond this classification, the ontology allows users to register weighted assoc
     <!-- http://purl.org/dc/terms/description -->
 
     <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/description"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/issued -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/issued"/>
     
 
 
