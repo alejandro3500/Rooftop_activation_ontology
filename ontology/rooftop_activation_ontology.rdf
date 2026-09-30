@@ -8,7 +8,6 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:bibo="http://purl.org/ontology/bibo/"
      xmlns:foaf="http://xmlns.com/foaf/0.1/"
-     xmlns:prez="https://prez.dev/"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
      xmlns:vann="http://purl.org/vocab/vann/"
@@ -20,12 +19,13 @@
         <owl:imports rdf:resource="http://bimerr.iot.linkeddata.es/def/building#"/>
         <owl:imports rdf:resource="http://www.opengis.net/ont/geosparql/1.1"/>
         <dcterms:abstract xml:lang="en">The Rooftop Activation Ontology describes how building rooftops can be activated through colour-coded activation types (blue, green, yellow, red, purple, orange and gray) defined by the functions they host, such as water management, vegetation, energy generation, social use or mobility. It links rooftops and buildings to their attributes, owners, urban districts and the urban challenges they address, and classifies the incentives that regions implement to support activation by nature, function, funding source, allocation mechanism, obligation attachment and project stage.</dcterms:abstract>
+        <dcterms:bibliographicCitation>Morales Hernandez, A. (2026). Rooftop Activation Ontology (Version 2.0.0) Université libre de Bruxelles.</dcterms:bibliographicCitation>
         <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-08-14</dcterms:created>
         <dcterms:creator rdf:resource="https://orcid.org/0000-0003-0053-4902"/>
         <dcterms:description xml:lang="en">The Rooftop Activation Ontology describes how building rooftops can be activated through colour-coded activation types (blue, green, yellow, red, purple, orange and gray) defined by the functions they host, such as water management, vegetation, energy generation, social use or mobility. It links rooftops and buildings to their attributes, owners, urban districts and the urban challenges they address, and classifies the incentives that regions implement to support activation by nature, function, funding source, allocation mechanism, obligation attachment and project stage. Users can register weighted associations between rooftop activation types, urban challenges, owner types and incentive types, optionally per region.</dcterms:description>
         <dcterms:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-09-29</dcterms:issued>
         <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
-        <dcterms:modified>2026-09-29</dcterms:modified>
+        <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-09-30</dcterms:modified>
         <dcterms:publisher rdf:resource="https://ror.org/01r9htc13"/>
         <dcterms:title xml:lang="en">Rooftop activation ontology</dcterms:title>
         <bibo:status rdf:resource="http://purl.org/ontology/bibo/status/published"/>
@@ -34,7 +34,7 @@
         <rdfs:seeAlso rdf:resource="https://github.com/alejandro3500/Rooftop_activation_ontology/blob/main/README.md"/>
         <rdfs:seeAlso rdf:resource="https://github.com/alejandro3500/Rooftop_activation_ontology/tree/main/examples"/>
         <rdfs:seeAlso rdf:resource="https://github.com/alejandro3500/Rooftop_activation_ontology/tree/main/queries"/>
-        <owl:versionInfo rdf:resource="2.0.0"/>
+        <owl:versionInfo rdf:resource="https://w3id.org/rooftop_activation/2.0.0"/>
         <widoco:introduction xml:lang="en">Urban rooftops are increasingly recognised as multifunctional infrastructure that can help address challenges such as urban heat islands, flooding, energy demand and biodiversity loss. However, rooftop interventions, the owners who carry them out and the policy incentives that support them are usually described separately, which makes it difficult to align rooftop activation with urban policy.
 
 The Rooftop Activation Ontology provides a shared vocabulary to describe these elements and their relationships. It classifies rooftops into colour-coded activation types (blue, green, yellow, red, purple, orange and gray) according to the functions they host, and links rooftops and buildings to their attributes, owners, districts and regions. It organises urban challenges into thematic groups and classifies incentive instruments by nature, function, funding source, allocation mechanism, obligation attachment and project stage.
@@ -60,6 +60,12 @@ Additional resources: the [guide to registering and querying association degrees
     <!-- http://purl.org/dc/terms/abstract -->
 
     <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/abstract"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/bibliographicCitation -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/bibliographicCitation"/>
     
 
 
@@ -379,7 +385,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:ObjectProperty rdf:about="https://w3id.org/rooftop_activation#has_rooftop_type">
         <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Rooftop"/>
         <rdfs:range rdf:resource="https://w3id.org/rooftop_activation#Rooftop_Type"/>
-        <rdfs:comment xml:lang="en">Relates a rooftop to its geometric classification.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Relates a rooftop to its geometric classification. Inverse of classifies_rooftop</rdfs:comment>
         <rdfs:label xml:lang="en">has rooftop type</rdfs:label>
     </owl:ObjectProperty>
     
@@ -413,7 +419,7 @@ Additional resources: the [guide to registering and querying association degrees
         <owl:inverseOf rdf:resource="https://w3id.org/rooftop_activation#implements"/>
         <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Incentive"/>
         <rdfs:range rdf:resource="https://w3id.org/rooftop_activation#Region"/>
-        <rdfs:comment xml:lang="en">Relation that states that an incentive is implemented in a region to activate a rooftop</rdfs:comment>
+        <rdfs:comment xml:lang="en">Relation that states that an incentive is implemented in a region to activate a rooftop.</rdfs:comment>
         <rdfs:label xml:lang="en">implemented in</rdfs:label>
     </owl:ObjectProperty>
     
@@ -424,7 +430,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:ObjectProperty rdf:about="https://w3id.org/rooftop_activation#implements">
         <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Region"/>
         <rdfs:range rdf:resource="https://w3id.org/rooftop_activation#Incentive"/>
-        <rdfs:comment xml:lang="en">Relation that states that a region implements an incentive to activate a rooftop. The inverse is implemented_in</rdfs:comment>
+        <rdfs:comment xml:lang="en">Relation that states that a region implements an incentive to activate a rooftop. The inverse is implemented_in.</rdfs:comment>
         <rdfs:label xml:lang="en">implements</rdfs:label>
     </owl:ObjectProperty>
     
@@ -593,7 +599,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:ObjectProperty rdf:about="https://w3id.org/rooftop_activation#rooftop_associated_to_incentive">
         <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Rooftop"/>
         <rdfs:range rdf:resource="https://w3id.org/rooftop_activation#Incentive"/>
-        <rdfs:comment xml:lang="en">Inverse of incentive_associated_to_rooftop</rdfs:comment>
+        <rdfs:comment xml:lang="en">Inverse of incentive_associated_to_rooftop.</rdfs:comment>
         <rdfs:label xml:lang="en">rooftop associated to incentive</rdfs:label>
     </owl:ObjectProperty>
     
@@ -1300,7 +1306,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Era_1830_1918">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Construction_Era_and_Typology"/>
         <rdfs:comment xml:lang="en">Early industrial-era construction, masonry-dominated, often with heritage constraints (1830-1918).</rdfs:comment>
-        <rdfs:label xml:lang="en">Era 1830 - 1918</rdfs:label>
+        <rdfs:label xml:lang="en">1830 - 1918</rdfs:label>
     </owl:Class>
     
 
@@ -1320,7 +1326,7 @@ Additional resources: the [guide to registering and querying association degrees
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Incentive"/>
-        <rdfs:comment xml:lang="en">A grant funded, fully or partly, by European Union resources. Defined class: membership is inferred from has_funding_source</rdfs:comment>
+        <rdfs:comment xml:lang="en">A grant funded, fully or partly, by European Union resources. Defined class: membership is inferred from has_funding_source.</rdfs:comment>
         <rdfs:label xml:lang="en">European Grant</rdfs:label>
     </owl:Class>
     
@@ -1392,7 +1398,7 @@ Additional resources: the [guide to registering and querying association degrees
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Incentive"/>
-        <rdfs:comment xml:lang="en">An incentive with at least one financial nature, that is, one that operates by moving money or altering the cost of capital. Defined class: membership is inferred from has_incentive_nature</rdfs:comment>
+        <rdfs:comment xml:lang="en">An incentive with at least one financial nature, that is, one that operates by moving money or altering the cost of capital. Defined class: membership is inferred from has_incentive_nature.</rdfs:comment>
         <rdfs:label xml:lang="en">Financial Incentive</rdfs:label>
     </owl:Class>
     
@@ -1454,7 +1460,7 @@ Additional resources: the [guide to registering and querying association degrees
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Fiscal_Nature">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Financial_Nature"/>
-        <rdfs:comment xml:lang="en">A financial nature exercised through the tax system, including credits, deductions, exemptions and rate reductions</rdfs:comment>
+        <rdfs:comment xml:lang="en">A financial nature exercised through the tax system, including credits, deductions, exemptions and rate reductions.</rdfs:comment>
         <rdfs:label xml:lang="en">Fiscal Nature</rdfs:label>
     </owl:Class>
     
@@ -1485,7 +1491,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#From_1919_to_1945">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Construction_Era_and_Typology"/>
         <rdfs:comment xml:lang="en">Interwar construction, introducing early reinforced concrete and standardised housing types (1919-1945).</rdfs:comment>
-        <rdfs:label xml:lang="en">Years 1919 - 1945</rdfs:label>
+        <rdfs:label xml:lang="en">1919 - 1945</rdfs:label>
     </owl:Class>
     
 
@@ -1579,7 +1585,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Green">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Residential"/>
         <rdfs:comment xml:lang="en">Residential fabric set within substantial open and planted space.</rdfs:comment>
-        <rdfs:label xml:lang="en">Green</rdfs:label>
+        <rdfs:label xml:lang="en">Green residential district</rdfs:label>
     </owl:Class>
     
 
@@ -1718,7 +1724,7 @@ Additional resources: the [guide to registering and querying association degrees
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#City_Center"/>
         <owl:disjointWith rdf:resource="https://w3id.org/rooftop_activation#Modern"/>
         <rdfs:comment xml:lang="en">The protected historic fabric of the core.</rdfs:comment>
-        <rdfs:label xml:lang="en">Historical</rdfs:label>
+        <rdfs:label xml:lang="en">Historical city center</rdfs:label>
     </owl:Class>
     
 
@@ -1969,7 +1975,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Late_20th_Century">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Construction_Era_and_Typology"/>
         <rdfs:comment xml:lang="en">Construction with modern structural codes and higher live load allowances (1976-2000).</rdfs:comment>
-        <rdfs:label xml:lang="en">Late 20th Century</rdfs:label>
+        <rdfs:label xml:lang="en">1976 - 2000</rdfs:label>
     </owl:Class>
     
 
@@ -2081,7 +2087,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Modern">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#City_Center"/>
         <rdfs:comment xml:lang="en">Recently developed or redeveloped parts of the core.</rdfs:comment>
-        <rdfs:label xml:lang="en">Modern</rdfs:label>
+        <rdfs:label xml:lang="en">Modern city center</rdfs:label>
     </owl:Class>
     
 
@@ -2353,7 +2359,7 @@ Additional resources: the [guide to registering and querying association degrees
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Pitched_Type">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Rooftop_Type"/>
-        <rdfs:comment xml:lang="en">Sloped roof. Restricts activation largely to energy generation and lightweight interventions</rdfs:comment>
+        <rdfs:comment xml:lang="en">Sloped roof. Restricts activation largely to energy generation and lightweight interventions.</rdfs:comment>
         <rdfs:label xml:lang="en">Pitched Type</rdfs:label>
     </owl:Class>
     
@@ -2387,7 +2393,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Post_WWII">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Construction_Era_and_Typology"/>
         <rdfs:comment xml:lang="en">Reconstruction-era construction, often rapid and lightly built, with limited structural reserve (1946-1975).</rdfs:comment>
-        <rdfs:label xml:lang="en">Post WWII</rdfs:label>
+        <rdfs:label xml:lang="en">1946 - 1975</rdfs:label>
     </owl:Class>
     
 
@@ -2427,7 +2433,7 @@ Additional resources: the [guide to registering and querying association degrees
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Incentive"/>
-        <rdfs:comment xml:lang="en">An incentive that acts before the investment decision, supporting awareness, feasibility, design or preparation of a rooftop project. Defined class: membership is inferred from applies_at_stage</rdfs:comment>
+        <rdfs:comment xml:lang="en">An incentive that acts before the investment decision, supporting awareness, feasibility, design or preparation of a rooftop project. Defined class: membership is inferred from applies_at_stage.</rdfs:comment>
         <rdfs:label xml:lang="en">Pre-investment Incentive</rdfs:label>
     </owl:Class>
     
@@ -2448,7 +2454,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Pre_1830">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Construction_Era_and_Typology"/>
         <rdfs:comment xml:lang="en">Pre-industrial construction, typically load-bearing masonry with timber roof structures and frequent heritage protection (&lt; 1830)</rdfs:comment>
-        <rdfs:label xml:lang="en">Pre 1830</rdfs:label>
+        <rdfs:label xml:lang="en">Before 1830</rdfs:label>
     </owl:Class>
     
 
@@ -2876,7 +2882,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Residential">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#District"/>
         <rdfs:comment xml:lang="en">Districts dominated by housing.</rdfs:comment>
-        <rdfs:label xml:lang="en">Residential</rdfs:label>
+        <rdfs:label xml:lang="en">Residential district</rdfs:label>
     </owl:Class>
     
 
@@ -2895,7 +2901,7 @@ Additional resources: the [guide to registering and querying association degrees
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Residential_Use">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Primary_Use"/>
-        <rdfs:comment xml:lang="en">Rooftop activation typically benefits residents directly and involves collective decision-making.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Buildings used primarily for housing</rdfs:comment>
         <rdfs:label xml:lang="en">Residential Use</rdfs:label>
     </owl:Class>
     
@@ -3208,7 +3214,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Urban">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Residential"/>
         <rdfs:comment xml:lang="en">Compact residential fabric with limited open space.</rdfs:comment>
-        <rdfs:label xml:lang="en">Urban</rdfs:label>
+        <rdfs:label xml:lang="en">Urban residential district</rdfs:label>
     </owl:Class>
     
 
@@ -3236,7 +3242,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Urban_Green">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Residential"/>
         <rdfs:comment xml:lang="en">Compact residential fabric with significant integrated greenery.</rdfs:comment>
-        <rdfs:label xml:lang="en">Urban Green</rdfs:label>
+        <rdfs:label xml:lang="en">Urban Green residential district</rdfs:label>
     </owl:Class>
     
 
@@ -3380,7 +3386,7 @@ Additional resources: the [guide to registering and querying association degrees
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#21st_Century">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Construction_Era_and_Typology"/>
         <rdfs:comment xml:lang="en">Contemporary construction, typically insulated, code-compliant and most readily adapted for rooftop use (&gt; 2000).</rdfs:comment>
-        <rdfs:label xml:lang="en">21st Century</rdfs:label>
+        <rdfs:label xml:lang="en">After 2000</rdfs:label>
     </owl:Class>
     
 
@@ -4607,7 +4613,7 @@ Additional resources: the [guide to registering and querying association degrees
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Green_Revenue">
         <rdfs:comment xml:lang="en">A green revenue bond, repaid from the revenues, fees or taxes generated by the financed projects rather than by the issuer&apos;s general balance sheet.</rdfs:comment>
-        <rdfs:label xml:lang="en">Green Revenue</rdfs:label>
+        <rdfs:label xml:lang="en">Green Revenue Bond</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Green_Rooftop">
         <rdfs:comment xml:lang="en">A rooftop activated with vegetation for biodiversity, cooling and amenity, or for food production. Defined class: membership is inferred from has_function.</rdfs:comment>
@@ -4622,12 +4628,12 @@ Additional resources: the [guide to registering and querying association degrees
         <rdfs:label xml:lang="en">Home Owner Associations</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Housing_Corporations">
-        <rdfs:comment xml:lang="en">Social housing providers with large portfolios, long horizons and a public-interest mandate. It also includes Social Housing providers</rdfs:comment>
+        <rdfs:comment xml:lang="en">Social housing providers with large portfolios, long horizons and a public-interest mandate. It also includes Social Housing providers.</rdfs:comment>
         <rdfs:label xml:lang="en">Housing Corporations</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Industrial">
         <rdfs:comment xml:lang="en">Owners of production and logistics buildings, typically holding large flat roofs.</rdfs:comment>
-        <rdfs:label xml:lang="en">Industrial</rdfs:label>
+        <rdfs:label xml:lang="en">Industrial owner</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Information_or_Engagement">
         <rdfs:comment xml:lang="en">Campaigns, events or outreach that raise awareness of rooftop activation and engage owners and residents.</rdfs:comment>
@@ -4643,7 +4649,7 @@ Additional resources: the [guide to registering and querying association degrees
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Investment">
         <rdfs:comment xml:lang="en">An investment fund that takes equity or quasi-equity positions in rooftop projects in expectation of a financial return.</rdfs:comment>
-        <rdfs:label xml:lang="en">Investment</rdfs:label>
+        <rdfs:label xml:lang="en">Investment fund</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Label_or_Recognition">
         <rdfs:comment xml:lang="en">A certification, label or award that recognises activated rooftops and can raise their visibility or market value.</rdfs:comment>
@@ -4723,11 +4729,11 @@ Additional resources: the [guide to registering and querying association degrees
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Real_Estate_Corporate">
         <rdfs:comment xml:lang="en">Real estate held by companies for their own operations or as an asset.</rdfs:comment>
-        <rdfs:label xml:lang="en">Real Estate Corporate</rdfs:label>
+        <rdfs:label xml:lang="en">Corporate Real Estate Owner</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Real_Estate_Municipal">
         <rdfs:comment xml:lang="en">Real estate held by a local authority, where public objectives may outweigh financial return.</rdfs:comment>
-        <rdfs:label xml:lang="en">Real Estate Municipal</rdfs:label>
+        <rdfs:label xml:lang="en">Municipal Real Estate Owner</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Red_Rooftop">
         <rdfs:comment xml:lang="en">A rooftop activated for social use, such as meeting, recreation, sport or cultural activities open to a community or the public. Defined class: membership is inferred from has_function.</rdfs:comment>
@@ -4751,7 +4757,7 @@ Additional resources: the [guide to registering and querying association degrees
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Revolving">
         <rdfs:comment xml:lang="en">A revolving fund in which repayments and returns from earlier projects are reinvested in new ones.</rdfs:comment>
-        <rdfs:label xml:lang="en">Revolving</rdfs:label>
+        <rdfs:label xml:lang="en">Revolving fund</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Revolving_Credit">
         <rdfs:comment xml:lang="en">A credit line that the borrower can draw, repay and draw again up to an agreed limit.</rdfs:comment>
@@ -4759,7 +4765,7 @@ Additional resources: the [guide to registering and querying association degrees
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Secured_Green">
         <rdfs:comment xml:lang="en">A secured green bond, backed by collateral from one or more green projects, such as the installations or their cash flows.</rdfs:comment>
-        <rdfs:label xml:lang="en">Secured Green</rdfs:label>
+        <rdfs:label xml:lang="en">Secured Green Bond</rdfs:label>
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Standard_Green_Use_of_Proceeds_Bond">
         <rdfs:comment xml:lang="en">A green bond with recourse to the issuer&apos;s full balance sheet, whose proceeds are allocated to eligible green projects.</rdfs:comment>
