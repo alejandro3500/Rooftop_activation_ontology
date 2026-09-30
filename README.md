@@ -92,6 +92,10 @@ Or download a serialisation from the documentation page.
 The ontology imports the BIMERR Building ontology and GeoSPARQL 1.1, so both
 must be reachable when the ontology is loaded with its imports.
 
+## Releasing notes
+
+Read the [release guide](RELEASE_README.md) for the steps to follow when a new version will be released.
+
 ## Building the documentation locally
 
 ```bash

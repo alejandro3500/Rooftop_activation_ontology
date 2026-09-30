@@ -23,7 +23,7 @@
         <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-08-14</dcterms:created>
         <dcterms:creator rdf:resource="https://orcid.org/0000-0003-0053-4902"/>
         <dcterms:description xml:lang="en">The Rooftop Activation Ontology describes how building rooftops can be activated through colour-coded activation types (blue, green, yellow, red, purple, orange and gray) defined by the functions they host, such as water management, vegetation, energy generation, social use or mobility. It links rooftops and buildings to their attributes, owners, urban districts and the urban challenges they address, and classifies the incentives that regions implement to support activation by nature, function, funding source, allocation mechanism, obligation attachment and project stage. Users can register weighted associations between rooftop activation types, urban challenges, owner types and incentive types, optionally per region.</dcterms:description>
-        <dcterms:issued>2026-09-30</dcterms:issued>
+        <dcterms:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-09-30</dcterms:issued>
         <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
         <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-09-30</dcterms:modified>
         <dcterms:publisher rdf:resource="https://ror.org/01r9htc13"/>
