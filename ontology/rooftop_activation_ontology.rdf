@@ -5136,6 +5136,17 @@ ex:rooftop_001_geom a geo:Geometry ;
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Era_1830_1918"/>
+            <rdf:Description rdf:about="https://w3id.org/rooftop_activation#From_1919_to_1945"/>
+            <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Late_20th_Century"/>
+            <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Post_WWII"/>
+            <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Pre_1830"/>
+            <rdf:Description rdf:about="https://w3id.org/rooftop_activation#21st_Century"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
             <rdf:Description rdf:about="https://w3id.org/rooftop_activation#European_Source"/>
             <rdf:Description rdf:about="https://w3id.org/rooftop_activation#Municipal_Source"/>
             <rdf:Description rdf:about="https://w3id.org/rooftop_activation#National_Source"/>
