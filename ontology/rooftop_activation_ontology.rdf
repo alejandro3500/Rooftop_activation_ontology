@@ -15,7 +15,7 @@
      xmlns:widoco="https://w3id.org/widoco/vocab#"
      xmlns:dcterms="http://purl.org/dc/terms/">
     <owl:Ontology rdf:about="https://w3id.org/rooftop_activation">
-        <owl:versionIRI rdf:resource="https://w3id.org/rooftop_activation/2.0.0"/>
+        <owl:versionIRI rdf:resource="https://w3id.org/rooftop_activation/2.1.0"/>
         <owl:imports rdf:resource="http://bimerr.iot.linkeddata.es/def/building#"/>
         <owl:imports rdf:resource="http://www.opengis.net/ont/geosparql/1.1"/>
         <dcterms:abstract xml:lang="en">The Rooftop Activation Ontology describes how building rooftops can be activated through colour-coded activation types (blue, green, yellow, red, purple, orange and gray) defined by the functions they host, such as water management, vegetation, energy generation, social use or mobility. It links rooftops and buildings to their attributes, owners, urban districts and the urban challenges they address, and classifies the incentives that regions implement to support activation by nature, function, funding source, allocation mechanism, obligation attachment and project stage.</dcterms:abstract>
@@ -34,7 +34,7 @@
         <rdfs:seeAlso rdf:resource="https://github.com/alejandro3500/Rooftop_activation_ontology/blob/main/README.md"/>
         <rdfs:seeAlso rdf:resource="https://github.com/alejandro3500/Rooftop_activation_ontology/tree/main/examples"/>
         <rdfs:seeAlso rdf:resource="https://github.com/alejandro3500/Rooftop_activation_ontology/tree/main/queries"/>
-        <owl:versionInfo rdf:resource="https://w3id.org/rooftop_activation/2.0.0"/>
+        <owl:versionInfo xml:lang="en">2.1.0</owl:versionInfo>
         <widoco:introduction xml:lang="en">Urban rooftops are increasingly recognised as multifunctional infrastructure that can help address challenges such as urban heat islands, flooding, energy demand and biodiversity loss. However, rooftop interventions, the owners who carry them out and the policy incentives that support them are usually described separately, which makes it difficult to align rooftop activation with urban policy.
 
 The Rooftop Activation Ontology provides a shared vocabulary to describe these elements and their relationships. It classifies rooftops into colour-coded activation types (blue, green, yellow, red, purple, orange and gray) according to the functions they host, and links rooftops and buildings to their attributes, owners, districts and regions. It organises urban challenges into thematic groups and classifies incentive instruments by nature, function, funding source, allocation mechanism, obligation attachment and project stage.
@@ -616,6 +616,23 @@ Additional resources: the [guide to registering and querying association degrees
     
 
 
+    <!-- https://w3id.org/rooftop_activation#has_city_model_id -->
+
+    <owl:DatatypeProperty rdf:about="https://w3id.org/rooftop_activation#has_city_model_id">
+        <rdfs:domain rdf:resource="http://bimerr.iot.linkeddata.es/def/building#Building"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">The identifier of the building in a CityJSON city model, that is, the key of the Building or BuildingPart in the CityObjects of the file.</rdfs:comment>
+        <rdfs:label xml:lang="en">has city model id</rdfs:label>
+        <skos:example xml:lang="en">ex:rooftop_001 a ra:Rooftop ;
+    ra:is_part_of ex:building_001 ;
+    geo:hasDefaultGeometry ex:rooftop_001_geom .
+
+ex:rooftop_001_geom a geo:Geometry ;
+    geo:asWKT &quot;&lt;http://www.opengis.net/def/crs/EPSG/0/XXXX&gt; MULTIPOLYGON Z (((x1 y1 z1, x2 y2 z2, x3 y3 z3, x1 y1 z1)))&quot;^^geo:wktLiteral .</skos:example>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#has_construction_year -->
 
     <owl:DatatypeProperty rdf:about="https://w3id.org/rooftop_activation#has_construction_year">
@@ -663,6 +680,17 @@ Additional resources: the [guide to registering and querying association degrees
     
 
 
+    <!-- https://w3id.org/rooftop_activation#has_osm_element -->
+
+    <owl:DatatypeProperty rdf:about="https://w3id.org/rooftop_activation#has_osm_element">
+        <rdfs:domain rdf:resource="http://bimerr.iot.linkeddata.es/def/building#Building"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+        <rdfs:comment xml:lang="en">Links a building to the OpenStreetMap way or relation that represents it, as a full openstreetmap.org URL. OSM identifiers may change, so the geometry should also be kept.</rdfs:comment>
+        <rdfs:label xml:lang="en">has OSM element</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -677,6 +705,14 @@ Additional resources: the [guide to registering and querying association degrees
     <!-- http://bimerr.iot.linkeddata.es/def/building#Building -->
 
     <owl:Class rdf:about="http://bimerr.iot.linkeddata.es/def/building#Building">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/ont/geosparql#Feature"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/ont/geosparql#hasGeometry"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.opengis.net/ont/geosparql#Geometry"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#has_attribute"/>
@@ -684,7 +720,7 @@ Additional resources: the [guide to registering and querying association degrees
                 <owl:onClass rdf:resource="https://w3id.org/rooftop_activation#Construction_Era_and_Typology"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">A physical structure with one or more rooftops, owned by an Owner and characterised by a set of Building_Attributes.</rdfs:comment>
+        <rdfs:comment xml:lang="en">A physical structure with one or more rooftops, owned by an Owner and characterised by a set of Building_Attributes. A building is a GeoSPARQL feature. Its geographic position is given by a geometry linked through geo:hasDefaultGeometry, normally its footprint as a WKT polygon, and optionally by a point linked through geo:hasCentroid. A building can be linked to its OpenStreetMap element through has_osm_element and to its city object in a CityJSON model through has_city_model_id.</rdfs:comment>
         <rdfs:label xml:lang="en">Building</rdfs:label>
     </owl:Class>
     
@@ -1998,8 +2034,8 @@ Additional resources: the [guide to registering and querying association degrees
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Location">
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Building_Attribute"/>
-        <rdfs:comment xml:lang="en">The position of a building within the urban-to-rural gradient.</rdfs:comment>
-        <rdfs:label xml:lang="en">Location</rdfs:label>
+        <rdfs:comment xml:lang="en">The position of a building within the urban-to-rural gradient. The geographic position is given by GeoSPARQL geometry.</rdfs:comment>
+        <rdfs:label xml:lang="en">Urban Location Context</rdfs:label>
     </owl:Class>
     
 
@@ -2933,7 +2969,8 @@ Additional resources: the [guide to registering and querying association degrees
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Rooftop">
         <rdfs:subClassOf rdf:resource="http://bimerr.iot.linkeddata.es/def/building#Roof"/>
-        <rdfs:comment xml:lang="en">The roof of a building considered as a potential site for activation, that is, for being put to a productive, ecological or social use.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/ont/geosparql#Feature"/>
+        <rdfs:comment xml:lang="en">The roof of a building considered as a potential site for activation, that is, for being put to a productive, ecological or social use. A rooftop is a GeoSPARQL feature. Its shape and position can be given by a geometry linked through geo:hasDefaultGeometry, normally a 3D polygon or multipolygon in WKT built from the RoofSurface surfaces of the building in a CityJSON model. Roof surfaces have no identifier in CityJSON, so a rooftop is linked to the city model through the building it is part of.</rdfs:comment>
         <rdfs:label xml:lang="en">Rooftop</rdfs:label>
     </owl:Class>
     
