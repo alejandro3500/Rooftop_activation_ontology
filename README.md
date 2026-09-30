@@ -62,11 +62,15 @@ Weighted links between these types are registered as individuals of `Rooftop_Cha
 │   ├── metadata-template.ttl                    annotations to paste into the ontology header
 │   └── README.md                                notes on the files in this folder
 ├── docs/
-│   └── association_degrees_documentation.md   how to register and query association degrees
+│   └── association_degrees_documentation.md       how to register and query association degrees (Only logic validated)
+│   ├── buildings_from_cityjson_documentation.md   how to register buildings contained in a CityJSON format (Only logic validated)
+│   └── incentive_registration_documentation.md    how to register incentives (Only logic validated)
 ├── examples/                            example instance data
 ├── queries/                             competency questions as SPARQL
 ├── w3id/                                .htaccess to submit to w3id.org
-├── scripts/build-docs.sh                local documentation build
+├── scripts
+│   ├── build-docs.sh                local documentation build
+│   └── cityjson_to_rdf.py           extract building information from a CityJSOn format to include it in the ontology (not tested)
 ├── CITATION.cff
 ├── CONTRIBUTING.md
 ├── BE-OLS-SUBMISSION.md                 pre-filled submission form for the BE-OLS catalogue
@@ -94,8 +98,8 @@ must be reachable when the ontology is loaded with its imports.
 ./scripts/build-docs.sh
 ```
 
-Requires Java 11 or newer. The script downloads WIDOCO and writes the site to
-`site/`. See [docs/DOCUMENTATION.md](DOCUMENTATION.md) for the full procedure.
+Requires Java 11 or newer and Docker. The script downloads WIDOCO and writes the site to
+`site/`. See [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md) for the full procedure.
 
 ## Related ontologies
 
