@@ -19,10 +19,10 @@ optionally per region.
 |---|---|
 | Ontology name | Rooftop Activation Ontology |
 | Ontology IRI | `https://w3id.org/rooftop_activation` |
-| Version IRI | `https://w3id.org/rooftop_activation/2.0.0` |
+| Version IRI | `https://w3id.org/rooftop_activation/2.1.0` |
 | Prefix | `rooftop_activation` |
 | Namespace URI | `https://w3id.org/rooftop_activation#` |
-| Current version | 2.0.0 |
+| Current version | 2.1.0 |
 | Status | Published |
 | Documentation | https://alejandro3500.github.io/Rooftop_activation_ontology/README.md |
 | Serialisations | [Turtle](https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.ttl), [RDF/XML](https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.xml), [JSON-LD](https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.jsonld), [N-Triples](https://alejandro3500.github.io/Rooftop_activation_ontology/ontology.nt) |
@@ -115,7 +115,7 @@ Metadata vocabularies: [DCMI Metadata Terms](http://purl.org/dc/terms/), [VANN](
 
 See [CITATION.cff](CITATION.cff), or cite as:
 
-> Morales Hernandez, A. (2026). *Rooftop Activation Ontology* (Version 2.0.0).
+> Morales Hernandez, A. (2026). *Rooftop Activation Ontology* (Version 2.1.0).
 > Université libre de Bruxelles. https://w3id.org/rooftop_activation
 
 ## Acknowledgements
