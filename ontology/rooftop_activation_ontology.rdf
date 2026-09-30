@@ -19,11 +19,11 @@
         <owl:imports rdf:resource="http://bimerr.iot.linkeddata.es/def/building#"/>
         <owl:imports rdf:resource="http://www.opengis.net/ont/geosparql/1.1"/>
         <dcterms:abstract xml:lang="en">The Rooftop Activation Ontology describes how building rooftops can be activated through colour-coded activation types (blue, green, yellow, red, purple, orange and gray) defined by the functions they host, such as water management, vegetation, energy generation, social use or mobility. It links rooftops and buildings to their attributes, owners, urban districts and the urban challenges they address, and classifies the incentives that regions implement to support activation by nature, function, funding source, allocation mechanism, obligation attachment and project stage.</dcterms:abstract>
-        <dcterms:bibliographicCitation>Morales Hernandez, A. (2026). Rooftop Activation Ontology (Version 2.0.0) Université libre de Bruxelles.</dcterms:bibliographicCitation>
+        <dcterms:bibliographicCitation>Morales Hernandez, A. (2026). Rooftop Activation Ontology (Version 2.1.0) Université libre de Bruxelles.</dcterms:bibliographicCitation>
         <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-08-14</dcterms:created>
         <dcterms:creator rdf:resource="https://orcid.org/0000-0003-0053-4902"/>
         <dcterms:description xml:lang="en">The Rooftop Activation Ontology describes how building rooftops can be activated through colour-coded activation types (blue, green, yellow, red, purple, orange and gray) defined by the functions they host, such as water management, vegetation, energy generation, social use or mobility. It links rooftops and buildings to their attributes, owners, urban districts and the urban challenges they address, and classifies the incentives that regions implement to support activation by nature, function, funding source, allocation mechanism, obligation attachment and project stage. Users can register weighted associations between rooftop activation types, urban challenges, owner types and incentive types, optionally per region.</dcterms:description>
-        <dcterms:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-09-29</dcterms:issued>
+        <dcterms:issued>2026-09-30</dcterms:issued>
         <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
         <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-09-30</dcterms:modified>
         <dcterms:publisher rdf:resource="https://ror.org/01r9htc13"/>
@@ -32,7 +32,8 @@
         <vann:preferredNamespacePrefix>rooftop_activation</vann:preferredNamespacePrefix>
         <vann:preferredNamespaceUri>https://w3id.org/rooftop_activation#</vann:preferredNamespaceUri>
         <rdfs:seeAlso rdf:resource="https://github.com/alejandro3500/Rooftop_activation_ontology/blob/main/README.md"/>
-        <owl:versionInfo xml:lang="en">2.1.0</owl:versionInfo>
+        <owl:priorVersion rdf:resource="https://w3id.org/rooftop_activation/2.0.0"/>
+        <owl:versionInfo>2.1.0</owl:versionInfo>
         <widoco:introduction xml:lang="en">Urban rooftops are increasingly recognised as multifunctional infrastructure that can help address challenges such as urban heat islands, flooding, energy demand and biodiversity loss. However, rooftop interventions, the owners who carry them out and the policy incentives that support them are usually described separately, which makes it difficult to align rooftop activation with urban policy.
 
 The Rooftop Activation Ontology provides a shared vocabulary to describe these elements and their relationships. It classifies rooftops into colour-coded activation types (blue, green, yellow, red, purple, orange and gray) according to the functions they host, and links rooftops and buildings to their attributes, owners, districts and regions. It organises urban challenges into thematic groups and classifies incentive instruments by nature, function, funding source, allocation mechanism, obligation attachment and project stage.

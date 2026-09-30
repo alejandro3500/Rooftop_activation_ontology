@@ -3,6 +3,27 @@
 All notable changes to the ontology are documented here.
 The format follows Keep a Changelog and the vocabulary uses semantic versioning.
 
+## [2.1.0] - 2026-09-30
+
+### Added
+- **Geolocation of buildings and rooftops:** `Building` and `Rooftop` are now GeoSPARQL features (`geo:Feature`), so each can carry geometries, such as a footprint, a centroid or roof surfaces. A building has at most one default geometry (`geo:hasDefaultGeometry max 1 geo:Geometry`).
+- **Links to external datasets:** two data properties on `Building`:
+  - `has_osm_element` (`xsd:anyURI`) links a building to its OpenStreetMap way or relation.
+  - `has_city_model_id` (`xsd:string`) links a building to its city object in a CityJSON 3D city model.
+- **Documentation:** 
+  - the `Building` and `Rooftop` comments explain how geometries and external identifiers are used, and `Rooftop` has a usage example (`skos:example`).
+  - documentation for registering buildings from CityJSON and incentives
+
+### Changed
+- `Location` is relabelled "Urban Location Context", and its comment now states that it describes the urban-to-rural context, while the geographic position is given by GeoSPARQL geometries.
+- Query 3 and owner registration in the association tutorial
+
+### Fixed
+- `owl:versionInfo` is now a literal instead of an IRI.
+- `dcterms:modified` is now typed as `xsd:date`.
+
+In total: 216 classes, 36 object properties, 5 data properties and 63 named individuals.
+
 ## [2.0.0] - 2026-09-29
 
 ### Added
