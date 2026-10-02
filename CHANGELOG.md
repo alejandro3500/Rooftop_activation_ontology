@@ -3,6 +3,18 @@
 All notable changes to the ontology are documented here.
 The format follows Keep a Changelog and the vocabulary uses semantic versioning.
 
+## [2.1.X] - 
+
+### Added
+- Disjoint property to the eras
+
+### Changed
+
+### Fixed
+
+In total: 216 classes, 36 object properties, 5 data properties and 63 named individuals.
+
+
 ## [2.1.0] - 2026-09-30
 
 ### Added

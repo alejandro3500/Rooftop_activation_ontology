@@ -560,12 +560,24 @@ Additional resources: the [guide to registering and querying association degrees
     
 
 
+    <!-- https://w3id.org/rooftop_activation#relates_incentive -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/rooftop_activation#relates_incentive">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Association"/>
+        <rdfs:range rdf:resource="https://w3id.org/rooftop_activation#Incentive"/>
+        <rdfs:comment xml:lang="en">The specific incentive (an individual of an Incentive subclass) involved in the association. To use an incentive type, see relates_incentive_type</rdfs:comment>
+        <rdfs:label xml:lang="en">relates incentive</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
     <!-- https://w3id.org/rooftop_activation#relates_incentive_type -->
 
     <owl:ObjectProperty rdf:about="https://w3id.org/rooftop_activation#relates_incentive_type">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="https://w3id.org/rooftop_activation#Association"/>
-        <rdfs:comment xml:lang="en">The incentive type (Incentive subclass) involved in the association. The value is the class IRI used as an individual (OWL 2 punning).</rdfs:comment>
+        <rdfs:comment xml:lang="en">The incentive type (Incentive subclass) involved in the association. The value is the class IRI used as an individual (OWL 2 punning). To use a specific incentive, see relates_incentive</rdfs:comment>
         <rdfs:label xml:lang="en">relates incentive type</rdfs:label>
     </owl:ObjectProperty>
     
@@ -808,7 +820,7 @@ Additional resources: the [guide to registering and querying association degrees
     <!-- https://w3id.org/rooftop_activation#Association -->
 
     <owl:Class rdf:about="https://w3id.org/rooftop_activation#Association">
-        <rdfs:comment xml:lang="en">A weighted link between two types of the ontology, expressed as an individual so that it can carry a degree.</rdfs:comment>
+        <rdfs:comment xml:lang="en">A weighted link between two entities of the ontology, types or individuals, expressed as an individual so that it can carry a degree.</rdfs:comment>
         <rdfs:label xml:lang="en">Association</rdfs:label>
     </owl:Class>
     
@@ -1865,7 +1877,7 @@ Additional resources: the [guide to registering and querying association degrees
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Degree to which an incentive type is suitable for, or used by, an owner type.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Degree to which an incentive type is suitable for, or used by, an owner type. To add an association degree between a specific incentive and owner type, see Specific  Incentive-Owner Association</rdfs:comment>
         <rdfs:label xml:lang="en">Incentive-Owner Association</rdfs:label>
     </owl:Class>
     
@@ -3045,6 +3057,34 @@ ex:rooftop_001_geom a geo:Geometry ;
         <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Urban_Challenge"/>
         <rdfs:comment xml:lang="en">Uneven access to services, facilities and safe shared spaces, and spatial separation of social groups between neighbourhoods.</rdfs:comment>
         <rdfs:label xml:lang="en">Social Inequality and Segregation Challenge</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/rooftop_activation#Specific_Incentive_Owner_Association -->
+
+    <owl:Class rdf:about="https://w3id.org/rooftop_activation#Specific_Incentive_Owner_Association">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/rooftop_activation#Association"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#relates_incentive"/>
+                <owl:someValuesFrom rdf:resource="https://w3id.org/rooftop_activation#Incentive"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#relates_owner_type"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/rooftop_activation#has_degree"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">Degree to which an specific incentive is suitable for, or used by, an owner type. To add an association degree between incentive type and owner type, see Incentive-Owner Association</rdfs:comment>
+        <rdfs:label xml:lang="en">Specific Incentive-Owner Association</rdfs:label>
     </owl:Class>
     
 
