@@ -1,12 +1,12 @@
 # Registering association degrees
 
-This section explains how to record, in your own data, how strongly rooftop activation types, urban challenges, owner types, incentive types and specific incentives are associated, and how to query those associations for a given rooftop, including the actual owner of its building and the incentives implemented in its region.
+This section explains how to record, in your own data, how strongly rooftop activation types, urban challenges, owner types, district types, incentive types and specific incentives are associated, and how to query those associations for a given rooftop, including the actual owner of its building, the priorities of its owner and district, and the incentives implemented in its region.
 
 ## 1. What an association is
 
-The ontology defines the types (rooftop colours, owner types, incentive types) and the urban challenges. Specific incentives (for example a grant programme of a given city) are individuals registered by users. How strongly they relate to each other depends on local context, so these links are registered by the users of the ontology, typically local authorities.
+The ontology defines the types (rooftop colours, owner types, district types, incentive types) and the urban challenges. Specific incentives (for example a grant programme of a given city) are individuals registered by users. How strongly they relate to each other depends on local context, so these links are registered by the users of the ontology, typically local authorities.
 
-Each link is registered as an individual of one of four association classes. The individual carries the two linked elements and a degree.
+Each link is registered as an individual of one of six association classes. The individual carries the two linked elements and a degree.
 
 | Association class | Links | Question it answers |
 |---|---|---|
@@ -14,6 +14,8 @@ Each link is registered as an individual of one of four association classes. The
 | `Owner_Rooftop_Association` | owner type and rooftop type | How likely is this owner type to activate this rooftop type? |
 | `Incentive_Owner_Association` | incentive type and owner type | How suitable is this incentive type for this owner type? |
 | `Specific_Incentive_Owner_Association` | specific incentive and owner type | How suitable is this particular incentive for this owner type? |
+| `Owner_Challenge_Association` | owner type and urban challenge | How high a priority is this challenge for this owner type? |
+| `District_Challenge_Association` | district type and urban challenge | How high a priority is this challenge in this district type? |
 
 Use `Specific_Incentive_Owner_Association` only when a particular incentive differs from what its type suggests, for example when its eligibility conditions favour or exclude some owner types. An association with a specific incentive replaces the associations of its types (section 4, rule 7).
 
@@ -21,6 +23,13 @@ Together they form a chain. For a rooftop of a given type, you can retrieve the 
 
 ```
 urban challenge  <-  rooftop type  <-  owner type  <-  incentive type or specific incentive
+```
+
+The two priority associations describe the demand side: which challenges matter most to an owner type and in a district type. They let you weight the challenges a rooftop addresses by the priorities of its owner and its district (Query 4):
+
+```
+owner type     ->  urban challenge   (priority)
+district type  ->  urban challenge   (priority)
 ```
 
 ### Degree scale
@@ -37,6 +46,8 @@ The degree (`has_degree`) is a decimal from 0 to 1:
 
 Intermediate values are allowed. Use the same scale for all associations so that degrees from different regions can be compared.
 
+For `Owner_Challenge_Association` and `District_Challenge_Association`, read the degree as a priority: 0.0 means the challenge is not a priority, 1.0 means it is the highest priority.
+
 ## 2. Before you start
 
 1. **Create your own data file.** Do not edit the ontology. Create a separate ontology for your data that imports `https://w3id.org/rooftop_activation`, and use your own namespace for everything you create (in the examples below, `ex:` stands for `https://example.org/my-region#`).
@@ -46,30 +57,46 @@ Intermediate values are allowed. Use the same scale for all associations so that
    `rooftop  is_part_of  building  is_located_in  district  is_part_of_region  region`
 
    A rooftop without this path is still queried, but only associations valid for all regions are returned.
-4. **Give each rooftop its activation type.** Either assert the colour class directly (for example `ex:rooftop42 a :Blue_Rooftop`), or assert its functions with `has_function` and let a reasoner infer the colour. In the second case, see section 10 before querying.
-5. **Register the owners of your buildings (optional).** Query 3 uses the actual owner of the building and the incentives implemented in your region. It needs owner individuals (section 8) and incentive individuals, registered as explained in the incentive registration tutorial. Incentive individuals are also needed for any `Specific_Incentive_Owner_Association`.
+4. **Give each district its district type.** Type each district individual with the most specific `District` subclass that applies, for example `ex:district_07 a :Historical` (section 8). Query 4 uses it to find the district priorities.
+5. **Give each rooftop its activation type.** Either assert the colour class directly (for example `ex:rooftop42 a :Blue_Rooftop`), or assert its functions with `has_function` and let a reasoner infer the colour. In the second case, see section 10 before querying.
+6. **Register the owners of your buildings (optional).** Query 3 uses the actual owner of the building and the incentives implemented in your region. Query 4 uses the owner to find the owner priorities. It needs owner individuals (section 8) and incentive individuals, registered as explained in the incentive registration tutorial. Incentive individuals are also needed for any `Specific_Incentive_Owner_Association`.
 
 ## 3. Structure of an association
 
-| Property | Rooftop_Challenge | Owner_Rooftop | Incentive_Owner | Specific_Incentive_Owner | Value |
-|---|---|---|---|---|---|
-| `relates_rooftop_type` | required | required | | | A rooftop colour class, e.g. `:Blue_Rooftop` |
-| `relates_challenge` | required | | | | An urban challenge individual, e.g. `:Flood_risk` |
-| `relates_owner_type` | | required | required | required | An `Owner` subclass, e.g. `:Home_Owner_Associations` |
-| `relates_incentive_type` | | | required | | An `Incentive` instrument subclass, e.g. `:Grant` |
-| `relates_incentive` | | | | required | An incentive individual, e.g. `ex:inc_Brussels_green_roof_grant` |
-| `has_degree` | required | required | required | required | Decimal from 0 to 1 (`xsd:decimal`) |
-| `defined_for_region` | optional | optional | optional | optional | A `Region` individual. Omit it for an association valid in all regions |
+Each association class requires two linking properties:
+
+| Association class | First property | Second property |
+|---|---|---|
+| `Rooftop_Challenge_Association` | `relates_rooftop_type` | `relates_challenge` |
+| `Owner_Rooftop_Association` | `relates_owner_type` | `relates_rooftop_type` |
+| `Incentive_Owner_Association` | `relates_incentive_type` | `relates_owner_type` |
+| `Specific_Incentive_Owner_Association` | `relates_incentive` | `relates_owner_type` |
+| `Owner_Challenge_Association` | `relates_owner_type` | `relates_challenge` |
+| `District_Challenge_Association` | `relates_district_type` | `relates_challenge` |
+
+All association classes also require `has_degree` and accept `defined_for_region`.
+
+| Property | Value |
+|---|---|
+| `relates_rooftop_type` | A rooftop colour class, e.g. `:Blue_Rooftop` |
+| `relates_challenge` | An urban challenge individual, e.g. `:Flood_risk` |
+| `relates_owner_type` | An `Owner` subclass, e.g. `:Home_Owner_Associations` |
+| `relates_district_type` | A `District` subclass, e.g. `:Historical` |
+| `relates_incentive_type` | An `Incentive` instrument subclass, e.g. `:Grant` |
+| `relates_incentive` | An incentive individual, e.g. `ex:inc_Brussels_green_roof_grant` |
+| `has_degree` | Decimal from 0 to 1 (`xsd:decimal`). Required |
+| `defined_for_region` | A `Region` individual. Optional: omit it for an association valid in all regions |
 
 Each property takes exactly one value per association.
 
-**Why a class name is used as a value.** Rooftop colours, owner types and incentive types are classes. To be used as values of `relates_rooftop_type`, `relates_owner_type` and `relates_incentive_type`, each of these classes is also declared as an individual with the same IRI (OWL 2 punning). This is already done in the ontology for all rooftop colours, owner types and incentive instrument types. `relates_incentive` does not use punning: its value is an ordinary incentive individual.
+**Why a class name is used as a value.** Rooftop colours, owner types, district types and incentive types are classes. To be used as values of `relates_rooftop_type`, `relates_owner_type`, `relates_district_type` and `relates_incentive_type`, each of these classes is also declared as an individual with the same IRI (OWL 2 punning). This is already done in the ontology for all rooftop colours, owner types, district types and incentive instrument types. `relates_incentive` does not use punning: its value is an ordinary incentive individual.
 
 **Valid values:**
 
 - Rooftop types: the seven colour subclasses of `Rooftop` (`Blue_Rooftop`, `Gray_Rooftop`, `Green_Rooftop`, `Orange_Rooftop`, `Purple_Rooftop`, `Red_Rooftop`, `Yellow_Rooftop`).
 - Urban challenges: the individuals of the `Urban_Challenge` subclasses.
 - Owner types: any subclass of `Owner`.
+- District types: any subclass of `District`.
 - Incentive types: any instrument subclass of `Incentive`. Do not use the defined classes computed from facets (for example `Financial_Incentive` or `European_Incentive`).
 - Specific incentives: individuals typed with an instrument subclass of `Incentive`, registered as explained in the incentive registration tutorial. Never use an incentive type as value of `relates_incentive`, or an incentive individual as value of `relates_incentive_type`.
 
@@ -84,11 +111,12 @@ Each property takes exactly one value per association.
 1. **One association per pair and per region.** Do not register the same pair twice for the same region. To change a degree, edit the existing association. For a `Specific_Incentive_Owner_Association`, the pair is the incentive individual and the owner type.
 2. **Regional values replace general values.** An association with `defined_for_region` replaces, for that region, an association of the same pair registered for all regions.
 3. **Use a degree of 0 to cancel a general association locally.** If an association valid for all regions does not apply in your region, register the same pair for your region with degree 0. If there is simply no association, do not register anything.
-4. **Register at the most general type that shares the same degree.** An owner or incentive association applies to all subclasses of the type. For example, an association with `:Grant` covers `:Pre-financed_Grant` and the other grant subclasses.
+4. **Register at the most general type that shares the same degree.** An owner, district or incentive association applies to all subclasses of the type. For example, an association with `:Grant` covers `:Pre-financed_Grant` and the other grant subclasses.
 5. **A more specific owner type replaces an inherited value.** If `:Grant` is associated with `:Real_Estate` (degree 0.5) and also with `:Real_Estate_Corporate` (degree 0.9), the value 0.9 applies to `:Real_Estate_Corporate` and 0.5 to the other `Real_Estate` subclasses.
 6. **A more specific incentive type replaces an inherited value.** If `:Grant` is associated with `:Home_Owner_Associations` (degree 0.5) and `:Pre-financed_Grant` also is (degree 0.9), the value 0.9 applies to pre-financed grants and 0.5 to the other grants. This matters when concrete incentives are matched to an owner (Query 3).
 7. **An association with a specific incentive replaces the associations of its types.** If an incentive individual has its own association with an owner type, that association is used for this incentive and that owner type (and its subclasses, as in rule 5). The associations registered for the incentive's types are then ignored for this pair, whatever the owner type or region at which they were registered. For example, if `:Grant` is associated with `:Home_Owner_Associations` (degree 0.5, Brussels) and the individual `ex:inc_Brussels_green_roof_grant`, of type `:Grant`, is associated with `:Home_Owner_Associations` (degree 0.7, all regions), the value 0.7 applies to that grant for homeowners' associations, and 0.5 to the other grants in Brussels. For owner types without a specific association for this incentive, the type associations still apply. Among the specific associations of the same incentive, rules 2 and 5 apply.
 8. **Use a degree of 0 to exclude a specific incentive.** If an incentive does not apply to an owner type although its type does, register a specific association for that owner type with degree 0.
+9. **A more specific district type replaces an inherited value.** If `:City_Center` has a priority of 0.5 for `:Flood_risk` and `:Historical` has 0.8, the value 0.8 applies to historical city centres and 0.5 to the other city centres. Rule 5 applies in the same way to owner priorities.
 
 Order of precedence when several associations match a concrete incentive and an owner: first an association with the incentive individual (rule 7); otherwise the associations of its types, applying rules 5 and 6. At each level, a regional value replaces a general one (rule 2).
 
@@ -150,6 +178,25 @@ ex:assoc_inc_Brussels_green_roof_grant_Home_Owner_Associations
 
 For these associations, use the convention `assoc_<Incentive>_<OwnerType>`.
 
+Priority associations follow the same pattern:
+
+```turtle
+# Owner type -> urban challenge (priority)
+ex:assoc_Real_Estate_Corporate_Flood_risk
+    a owl:NamedIndividual , :Owner_Challenge_Association ;
+    :relates_owner_type :Real_Estate_Corporate ;
+    :relates_challenge  :Flood_risk ;
+    :has_degree         "0.6"^^xsd:decimal .
+
+# District type -> urban challenge (priority)
+ex:assoc_Brussels_Historical_Flood_risk
+    a owl:NamedIndividual , :District_Challenge_Association ;
+    :relates_district_type :Historical ;
+    :relates_challenge     :Flood_risk ;
+    :has_degree            "0.8"^^xsd:decimal ;
+    :defined_for_region    :Brussels .
+```
+
 ## 6. Registering associations in Protégé
 
 1. Open your data ontology (the one that imports the Rooftop Activation Ontology).
@@ -165,24 +212,27 @@ For these associations, use the convention `assoc_<Incentive>_<OwnerType>`.
 
 For a `Specific_Incentive_Owner_Association`, in step 3 select `Specific_Incentive_Owner_Association`, and in step 4 add `relates_incentive` (select the incentive individual) and `relates_owner_type` (select the owner type). The incentive individual must be in your data ontology or in a file it imports.
 
+For an `Owner_Challenge_Association` or a `District_Challenge_Association`, in step 4 add `relates_owner_type` (select the owner type) or `relates_district_type` (select the district type), and `relates_challenge` (select the urban challenge).
+
 For many associations, prepare them in a spreadsheet (one row per association) and import them with the Cellfie plugin (**Tools > Create axioms from Excel workbook**), or convert the spreadsheet to Turtle with a script.
 
-## 7. Adding new owner or incentive types
+## 7. Adding new owner, district or incentive types
 
-If you extend the ontology with a new subclass of `Owner` or `Incentive`, also declare an individual with exactly the same IRI. Otherwise the new type cannot be used in associations. Incentive individuals do not need this declaration.
+If you extend the ontology with a new subclass of `Owner`, `District` or `Incentive`, also declare an individual with exactly the same IRI. Otherwise the new type cannot be used in associations. Incentive individuals do not need this declaration.
 
 In Protégé: **Entities > Individuals > Add individual**, enter exactly the class name, and check that the IRI is identical to the class IRI. Do not add types or annotations to this individual; it shares the class annotations.
 
-## 8. Registering building owners
+## 8. Registering building owners and districts
 
-Associations are registered between owner *types*. To find the incentives available to the actual owner of a building (Query 3), register the owner as an individual and link the building to it.
+Associations are registered between owner *types*. To find the incentives available to the actual owner of a building (Query 3) and the owner's priorities (Query 4), register the owner as an individual and link the building to it.
 
 | Property | On | Required | Value |
 |---|---|---|---|
 | `rdf:type` | owner | required | **One** `Owner` subclass, the most specific that applies, e.g. `:Home_Owner_Associations`. The owner types are disjoint, so an owner cannot have two |
 | `rdfs:label` | owner | recommended | A name or reference for the owner |
 | `is_owned_by` | building | required | The owner individual |
-| `has_owner_urban_challenge_priority` | owner | optional | The urban challenge individuals the owner prioritises, e.g. `:Flood_risk` |
+
+Owner priorities are registered for owner types with `Owner_Challenge_Association` (section 5), not on owner individuals. The properties `has_owner_urban_challenge_priority` and `has_district_urban_challenge_priority`, and their inverses, are deprecated: they could not carry a degree. Do not use them in new data.
 
 Rules:
 
@@ -194,8 +244,7 @@ In Turtle:
 
 ```turtle
 ex:owner_0042 a owl:NamedIndividual , :Home_Owner_Associations ;
-    rdfs:label "Homeowners' association 0042"@en ;
-    :has_owner_urban_challenge_priority :Flood_risk .
+    rdfs:label "Homeowners' association 0042"@en .
 
 ex:building_B0001 :is_owned_by ex:owner_0042 .
 ```
@@ -209,6 +258,26 @@ In Protégé:
 5. Save your data ontology.
 
 If your buildings are generated from a CityJSON file, add the owners and the `is_owned_by` links in your hand-made file, not in the generated one, so that they survive a regeneration.
+
+### Districts
+
+Priorities are registered between district *types*. To find the priorities of the district of a rooftop (Query 4), type each district individual with its district type.
+
+| Property | On | Required | Value |
+|---|---|---|---|
+| `rdf:type` | district | required | **One** `District` subclass, the most specific that applies, e.g. `:Historical` |
+| `is_part_of_region` | district | required | The region individual |
+| `is_located_in` | building | required | The district individual |
+
+The top-level district types (`City_Center`, `Green_Areas`, `Industrial_and_Service_Districts`, `Residential`, `Sub-center`, `Unused_Areas`) are disjoint, so a district cannot belong to two of them. As for owners, never use a district type as value of `is_located_in`: always create a district individual.
+
+```turtle
+ex:district_07 a owl:NamedIndividual , :Historical ;
+    rdfs:label "Historic centre"@en ;
+    :is_part_of_region :Brussels .
+
+ex:building_B0001 :is_located_in ex:district_07 .
+```
 
 ## 9. Checking your data
 
@@ -232,6 +301,7 @@ WHERE {
     "degree outside 0-1"
     "missing relates_rooftop_type"
     "missing relates_challenge"
+    "missing relates_district_type"
     "missing relates_owner_type"
     "missing relates_incentive_type"
     "missing relates_incentive"
@@ -245,10 +315,13 @@ WHERE {
         && ?kind IN (:Rooftop_Challenge_Association, :Owner_Rooftop_Association)
         && NOT EXISTS { ?association :relates_rooftop_type ?x })
     || (?problem = "missing relates_challenge"
-        && ?kind = :Rooftop_Challenge_Association
+        && ?kind IN (:Rooftop_Challenge_Association, :Owner_Challenge_Association, :District_Challenge_Association)
         && NOT EXISTS { ?association :relates_challenge ?x })
+    || (?problem = "missing relates_district_type"
+        && ?kind = :District_Challenge_Association
+        && NOT EXISTS { ?association :relates_district_type ?x })
     || (?problem = "missing relates_owner_type"
-        && ?kind IN (:Owner_Rooftop_Association, :Incentive_Owner_Association, :Specific_Incentive_Owner_Association)
+        && ?kind IN (:Owner_Rooftop_Association, :Incentive_Owner_Association, :Specific_Incentive_Owner_Association, :Owner_Challenge_Association)
         && NOT EXISTS { ?association :relates_owner_type ?x })
     || (?problem = "missing relates_incentive_type"
         && ?kind = :Incentive_Owner_Association
@@ -281,12 +354,13 @@ WHERE {
   OPTIONAL { ?a :relates_rooftop_type   ?rt }
   OPTIONAL { ?a :relates_challenge      ?ch }
   OPTIONAL { ?a :relates_owner_type     ?ot }
+  OPTIONAL { ?a :relates_district_type  ?dt }
   OPTIONAL { ?a :relates_incentive_type ?it }
   OPTIONAL { ?a :relates_incentive      ?si }
   OPTIONAL { ?a :defined_for_region     ?r }
   BIND (CONCAT(COALESCE(STR(?rt), ""), " | ", COALESCE(STR(?ch), ""), " | ",
-               COALESCE(STR(?ot), ""), " | ", COALESCE(STR(?it), ""), " | ",
-               COALESCE(STR(?si), "")) AS ?pair)
+               COALESCE(STR(?ot), ""), " | ", COALESCE(STR(?dt), ""), " | ",
+               COALESCE(STR(?it), ""), " | ", COALESCE(STR(?si), "")) AS ?pair)
   BIND (COALESCE(STR(?r), "all regions") AS ?region)
 }
 GROUP BY ?kind ?pair ?region
@@ -295,9 +369,9 @@ HAVING (COUNT(?a) > 1)
 
 ## 10. Querying the associations of a rooftop
 
-Run the queries on a dataset that contains **both the ontology and your data**, because they use the class hierarchy of the ontology (for owner and incentive type inheritance). For example, load both files into the same triplestore, or merge them.
+Run the queries on a dataset that contains **both the ontology and your data**, because they use the class hierarchy of the ontology (for owner, district and incentive type inheritance). For example, load both files into the same triplestore, or merge them.
 
-If the activation type of your rooftops is inferred from `has_function` rather than asserted, or if the types of your owners or incentives are inferred, the inferred types must be available to the query. Either export the inferred axioms first (in Protégé: **File > Export inferred axioms as ontology**) or use a query engine with OWL reasoning.
+If the activation type of your rooftops is inferred from `has_function` rather than asserted, or if the types of your owners, districts or incentives are inferred, the inferred types must be available to the query. Either export the inferred axioms first (in Protégé: **File > Export inferred axioms as ontology**) or use a query engine with OWL reasoning.
 
 In all queries, replace `ex:rooftop42` with the IRI of your rooftop.
 
@@ -622,3 +696,159 @@ Query 3 returns:
 | inc_Brussels_green_roof_grant | incentive | | 0.7 | all regions | yes |
 
 The pre-financed grant uses the value registered for `Pre-financed_Grant`, which replaces the value inherited from `Grant` (rule 6). The green roof grant uses its own association, which replaces the value 0.5 of its type `Grant` (rule 7). The advice desk inherits the association registered for all owners: its specific association concerns `Landlords` only, so it does not apply to a homeowners' association. The Rotterdam incentive is not in the rooftop's region, and no tax credit is implemented in Brussels, so neither appears.
+
+### Query 4: challenges addressed by a rooftop, with the priorities of its district and owner
+
+Query 4 extends Query 1. For each urban challenge the rooftop's activation type contributes to addressing, it adds the priority of that challenge for the rooftop's district type and for the owner's type. Rules 2, 5 and 9 of section 4 apply: a regional value replaces a general one, and the priority registered at the most specific district type and owner type is used.
+
+It requires, in addition to the requirements of Query 1:
+
+- `is_located_in` on the building, with a district individual typed with a `District` subclass (section 8);
+- optionally, `is_owned_by` on the building, with an owner individual of an `Owner` subclass (section 8).
+
+If the district or the owner is missing, the corresponding columns are empty.
+
+```sparql
+PREFIX :     <https://w3id.org/rooftop_activation#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ex:   <https://example.org/my-region#>
+
+SELECT ?rooftopType ?challenge ?contribution
+       ?districtType ?districtPriority ?districtPriorityDefinedAt ?districtPriorityDefinedFor
+       ?ownerType ?ownerPriority ?ownerPriorityDefinedAt ?ownerPriorityDefinedFor
+WHERE {
+  BIND (ex:rooftop42 AS ?rooftop)   # <- replace with your rooftop IRI
+
+  # 1. Region, district type and owner type of the rooftop (most specific types only)
+  OPTIONAL { ?rooftop :is_part_of/:is_located_in/:is_part_of_region ?foundRegion }
+  BIND (COALESCE(?foundRegion, <urn:no-region>) AS ?region)
+  OPTIONAL {
+    ?rooftop :is_part_of/:is_located_in ?district .
+    ?district a ?districtType .
+    ?districtType rdfs:subClassOf+ :District .
+    FILTER NOT EXISTS { ?district a ?subDistrictType . ?subDistrictType rdfs:subClassOf+ ?districtType }
+  }
+  BIND (COALESCE(?districtType, <urn:no-district>) AS ?districtKey)
+  OPTIONAL {
+    ?rooftop :is_part_of/:is_owned_by ?owner .
+    ?owner a ?ownerType .
+    ?ownerType rdfs:subClassOf+ :Owner .
+    FILTER NOT EXISTS { ?owner a ?subOwnerType . ?subOwnerType rdfs:subClassOf+ ?ownerType }
+  }
+  BIND (COALESCE(?ownerType, <urn:no-owner>) AS ?ownerKey)
+
+  # 2. Challenges addressed by the rooftop's activation type (as in Query 1)
+  ?rooftop a ?rooftopType .
+  ?rooftopType rdfs:subClassOf :Rooftop .
+  ?c a :Rooftop_Challenge_Association ;
+     :relates_rooftop_type ?rooftopType ;
+     :relates_challenge    ?challenge ;
+     :has_degree           ?contribution .
+  OPTIONAL { ?c :defined_for_region ?rc }
+  FILTER (!BOUND(?rc) || ?rc = ?region)
+  FILTER (BOUND(?rc) || NOT EXISTS {
+    ?c2 a :Rooftop_Challenge_Association ;
+        :relates_rooftop_type ?rooftopType ;
+        :relates_challenge    ?challenge ;
+        :defined_for_region   ?region .
+  })
+
+  # 3. Priority of the challenge for the district type (or a supertype)
+  OPTIONAL {
+    ?districtKey rdfs:subClassOf* ?districtPriorityDefinedAt .
+    ?d a :District_Challenge_Association ;
+       :relates_district_type ?districtPriorityDefinedAt ;
+       :relates_challenge     ?challenge ;
+       :has_degree            ?districtPriority .
+    OPTIONAL { ?d :defined_for_region ?rd }
+    FILTER (!BOUND(?rd) || ?rd = ?region)
+    # regional replaces general for the same pair
+    FILTER (BOUND(?rd) || NOT EXISTS {
+      ?d2 a :District_Challenge_Association ;
+          :relates_district_type ?districtPriorityDefinedAt ;
+          :relates_challenge     ?challenge ;
+          :defined_for_region    ?region .
+    })
+    # a more specific district type replaces an inherited one
+    FILTER NOT EXISTS {
+      ?d3 a :District_Challenge_Association ;
+          :relates_district_type ?closerDistrict ;
+          :relates_challenge     ?challenge .
+      ?districtKey rdfs:subClassOf* ?closerDistrict .
+      ?closerDistrict rdfs:subClassOf+ ?districtPriorityDefinedAt .
+      OPTIONAL { ?d3 :defined_for_region ?rd3 }
+      FILTER (!BOUND(?rd3) || ?rd3 = ?region)
+    }
+    BIND (IF(BOUND(?rd), ?rd, "all regions") AS ?districtPriorityDefinedFor)
+  }
+
+  # 4. Priority of the challenge for the owner type (or a supertype)
+  OPTIONAL {
+    ?ownerKey rdfs:subClassOf* ?ownerPriorityDefinedAt .
+    ?o a :Owner_Challenge_Association ;
+       :relates_owner_type ?ownerPriorityDefinedAt ;
+       :relates_challenge  ?challenge ;
+       :has_degree         ?ownerPriority .
+    OPTIONAL { ?o :defined_for_region ?ro }
+    FILTER (!BOUND(?ro) || ?ro = ?region)
+    # regional replaces general for the same pair
+    FILTER (BOUND(?ro) || NOT EXISTS {
+      ?o2 a :Owner_Challenge_Association ;
+          :relates_owner_type ?ownerPriorityDefinedAt ;
+          :relates_challenge  ?challenge ;
+          :defined_for_region ?region .
+    })
+    # a more specific owner type replaces an inherited one
+    FILTER NOT EXISTS {
+      ?o3 a :Owner_Challenge_Association ;
+          :relates_owner_type ?closerOwner ;
+          :relates_challenge  ?challenge .
+      ?ownerKey rdfs:subClassOf* ?closerOwner .
+      ?closerOwner rdfs:subClassOf+ ?ownerPriorityDefinedAt .
+      OPTIONAL { ?o3 :defined_for_region ?ro3 }
+      FILTER (!BOUND(?ro3) || ?ro3 = ?region)
+    }
+    BIND (IF(BOUND(?ro), ?ro, "all regions") AS ?ownerPriorityDefinedFor)
+  }
+}
+ORDER BY DESC(?contribution) ?challenge
+```
+
+| Column | Meaning |
+|---|---|
+| `rooftopType` | Activation type of the rooftop |
+| `challenge` | Urban challenge the rooftop type contributes to addressing |
+| `contribution` | Degree of the rooftop-challenge association (as in Query 1) |
+| `districtType` | Type of the rooftop's district (empty if no district is found) |
+| `districtPriority` | Priority of the challenge for that district type (empty if none is registered) |
+| `districtPriorityDefinedAt` | District type at which the priority was registered (the district type itself or one of its superclasses) |
+| `districtPriorityDefinedFor` | Region of the district priority, or "all regions" |
+| `ownerType` | Type of the building's owner (empty if no owner is registered) |
+| `ownerPriority` | Priority of the challenge for that owner type (empty if none is registered) |
+| `ownerPriorityDefinedAt` | Owner type at which the priority was registered (the owner type itself or one of its superclasses) |
+| `ownerPriorityDefinedFor` | Region of the owner priority, or "all regions" |
+
+The query does not combine the three degrees into a single score. How to combine them (for example a product or a weighted mean) is a decision of the user.
+
+Challenges that are a priority for the district or the owner but that the rooftop's activation type does not address are not returned.
+
+#### Example
+
+With the rooftop-challenge associations of the Query 1 example, a blue rooftop in Brussels whose building is in `ex:district_07` (a `Historical` district) and is owned by a `Real_Estate_Corporate` owner, and these registered priorities:
+
+| Priority association | Region | Degree |
+|---|---|---|
+| `City_Center` - `Flood_risk` | all regions | 0.5 |
+| `Historical` - `Flood_risk` | Brussels | 0.8 |
+| `Residential` - `Drought_resistance` | all regions | 0.7 |
+| `Real_Estate` - `Drought_resistance` | all regions | 0.4 |
+| `Real_Estate_Corporate` - `Flood_risk` | all regions | 0.6 |
+
+Query 4 returns:
+
+| challenge | contribution | districtPriority | districtPriorityDefinedAt | ownerPriority | ownerPriorityDefinedAt |
+|---|---|---|---|---|---|
+| Flood_risk | 0.9 | 0.8 | Historical | 0.6 | Real_Estate_Corporate |
+| Drought_resistance | 0.6 | | | 0.4 | Real_Estate |
+
+For `Flood_risk`, the Brussels priority registered for `Historical` replaces the value inherited from `City_Center` (rule 9). For `Drought_resistance`, the district priority registered for `Residential` does not apply to a historical city centre, and the owner priority is inherited from `Real_Estate`.
