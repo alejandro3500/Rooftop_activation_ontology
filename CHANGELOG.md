@@ -3,7 +3,7 @@
 All notable changes to the ontology are documented here.
 The format follows Keep a Changelog and the vocabulary uses semantic versioning.
 
-## [2.2.0] - 
+## [2.2.0] - 2026-09-30
 
 ### Added
 - Disjoint property to the eras
